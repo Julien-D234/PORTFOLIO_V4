@@ -1,7 +1,7 @@
 # HANDOFF — PORTFOLIO_V4
 
 Projet reconstruit de zéro dans `Julien-D234/PORTFOLIO_V4` (l'ancien `PORTFOLIO_V3` reste en référence).
-Branche de travail : `vibe/rebuild-v4-ad0ea2`, livraison par PR vers `main`.
+Branche de travail : `vibe/rebuild-v4-ad0ea2`, livraison par PR vers `main` : **PR draft [#10](https://github.com/Julien-D234/PORTFOLIO_V4/pull/10)** (étape 1).
 
 État : **étape 1 (socle) en cours** — voir `ROADMAP.md` (vue d'ensemble) et `roadmap_current.md` (tâche en cours).
 

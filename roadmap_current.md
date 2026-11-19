@@ -1,6 +1,6 @@
 # Tâche en cours — Étape 1 : socle technique
 
-État : 🟡 en cours · Branche : `vibe/rebuild-v4-ad0ea2` · PR : voir lien dans `HANDOFF.md`
+État : ✅ étape 1 livrée · Branche : `vibe/rebuild-v4-ad0ea2` · **PR draft : [#10](https://github.com/Julien-D234/PORTFOLIO_V4/pull/10)** · CI en cours de vérification
 
 ## Objectif de l'étape 1
 
@@ -28,7 +28,7 @@ ROADMAP.md, roadmap_current.md). **Sans sauvegarde** (décision : plus tard).
 - [x] Tests : parité fr/en, locale, CSP → `npm run check` (lint + typecheck + 11 tests) et `npm run build` verts
 - [x] Smoke sur build de prod (`node .next/standalone/server.js`) : `/`→307 `/fr` (défaut), `Accept-Language: en`→`/en`,
   cookie `NEXT_LOCALE=en`→`/en`, CSP à nonce + en-têtes présents, `<html lang="fr">`, `/api/health` → `{"status":"ok"}` no-store
-- [ ] Commit(s) → push → PR draft → CI verte
+- [x] Commit(s) → push branche → **PR draft #10** → CI en cours (`gh run list --repo Julien-D234/PORTFOLIO_V4 -w CI`)
 
 ## Prochaine étape (à valider avant code)
 
