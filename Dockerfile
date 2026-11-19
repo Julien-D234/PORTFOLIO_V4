@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM node:22-alpine AS base
+FROM node:26-alpine AS base
 WORKDIR /app
 
 FROM base AS deps
@@ -21,7 +21,7 @@ COPY . .
 USER node
 CMD ["npm", "run", "db:migrate"]
 
-FROM node:22-alpine AS runner
+FROM node:26-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 RUN addgroup -S app && adduser -S app -G app
