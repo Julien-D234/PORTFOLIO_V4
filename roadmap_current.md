@@ -1,46 +1,41 @@
-# Tâche en cours — Étape 1 : socle technique
+# Tâche en cours — Étape 2 : authentification + rôles
 
-État : ✅ étape 1 livrée · Branche : `vibe/rebuild-v4-ad0ea2` · **PR draft : [#10](https://github.com/Julien-D234/PORTFOLIO_V4/pull/10)** · CI en cours de vérification
+État : 🟡 en cours · Branche : `vibe/etape-2-auth` (PR à ouvrir) · Base : `main` (étape 1 mergée via PR #10)
 
-## Objectif de l'étape 1
+## Objectif de l'étape 2
 
-Socle exécutable et testé : Next.js 16.4 (App Router, `src/proxy.ts`) + TS strict + Tailwind 4, i18n maison fr/en
-avec redirection de langue, CSP à nonce + en-têtes de sécurité, thème V2 global (double thème, bascule mémorisée),
-accueil `/{lang}` volontairement vide, `GET /api/health`, ports/adapters (DB), scripts `db:*`/`dev:db`, CI GitHub
-Actions + Dependabot, Docker/Caddy, docs (README, SECURITY.md, AGENTS.md, CAHIER_DES_CHARGES.md, HANDOFF.md,
-ROADMAP.md, roadmap_current.md). **Sans sauvegarde** (décision : plus tard).
+Auth robuste sans inscription publique : schéma Drizzle (tables Better Auth + `rate_limit` + `audit_log`, migration
+`drizzle/0000_*.sql`), factory testable `src/server/auth/create-auth.ts` (seul import de `better-auth`), logique pure
+`authz.ts`, gardes `src/server/guards.ts` (`requireUser`/`requireAdmin`/`requireApi`), route `/api/auth/[...all]`,
+script `create-admin`, Argon2id, mdp 12–128, sessions 7 j sans cache cookie, rate-limit en base (5/min sur sign-in),
+verrouillage 10 échecs → 15 min, `SELF_ACTION`/`LAST_ADMIN`, impersonation bloquée, audit `login_failed`/`account_locked`.
 
 ## Checklist
 
-- [x] Branche `vibe/rebuild-v4-ad0ea2` + dépendances installées (package-lock.json)
-- [x] `package.json` / `tsconfig.json` strict / ESLint 9 / Vitest 5 / drizzle.config.ts
-- [x] i18n : `src/i18n/`, `messages/fr.json` + `en.json` (parité testée), `src/lib/locale.ts`
-- [x] `src/proxy.ts` : redirection 307 de langue + CSP à nonce + `x-locale`/`x-nonce`
-- [x] En-têtes de sécurité dans `next.config.ts`
-- [x] Thème V2 global (`globals.css` : variables clair/sombre, `prefers-color-scheme`, `data-theme`) + bascule cookie
-  (`ThemeToggle`) + accueil vide + `GET /api/health`
-- [x] Ports/adapters socle : `src/server/env.ts`, `src/server/db/index.ts` (seul import pg/drizzle)
-- [x] Scripts : `dev:db` (PGlite socket), `db:migrate` (no-op tant que `drizzle/` est absent)
-- [x] CI `.github/workflows/ci.yml` (check + docker) + `dependabot.yml`
-- [x] Docker : Dockerfile multi-étapes, `docker-compose.yml`, `docker/docker-compose.prod.yml` + Caddyfile
-  (pas de `backup.sh` — sauvegardes différées)
-- [x] Docs : README, SECURITY.md, AGENTS.md, CAHIER_DES_CHARGES.md, HANDOFF.md, ROADMAP.md, roadmap_current.md
-- [x] Tests : parité fr/en, locale, CSP → `npm run check` (lint + typecheck + 11 tests) et `npm run build` verts
-- [x] Smoke sur build de prod (`node .next/standalone/server.js`) : `/`→307 `/fr` (défaut), `Accept-Language: en`→`/en`,
-  cookie `NEXT_LOCALE=en`→`/en`, CSP à nonce + en-têtes présents, `<html lang="fr">`, `/api/health` → `{"status":"ok"}` no-store
-- [x] Commit(s) → push branche → **PR draft #10** → CI en cours (`gh run list --repo Julien-D234/PORTFOLIO_V4 -w CI`)
+- [x] `src/server/db/schema.ts` + migration `drizzle/0000_daffy_carmella_unuscione.sql` (`npm run db:generate`)
+- [x] `src/server/auth/password.ts` (Argon2id 64 MiB t=3 p=1, verify sans exception)
+- [x] `src/server/auth/authz.ts` (pur, testé) + `create-auth.ts` (Better Auth 1.7 + plugin admin + plugin local
+  `security-hooks` : impersonation 403, lockout, politique mdp sur endpoints admin, SELF_ACTION/LAST_ADMIN)
+- [x] `src/server/guards.ts` + `src/app/api/auth/[...all]/route.ts`
+- [x] `scripts/create-admin.mts` (mdp saisi masqué, `ADMIN_PASSWORD` pour la CI)
+- [x] Tests : `tests/authz.test.ts` (7), `tests/auth.test.ts` (8, PGlite) → **26 tests au total, `npm run check` vert**
+- [x] `npm run build` vert ; smoke HTTP sur build de prod (PGlite) : mauvais mdp → 401 identique à email inconnu,
+  sign-up → 400 désactivé, bon mdp → 200 + cookie session, `get-session` OK/null, 6e tentative → 429, health OK
+- [ ] Commit(s) → push → PR draft → CI verte
+
+## Blocages / erreurs signalées (corrigées dans l'étape)
+
+- `server-only` dans `env.ts` cassait les tests/scripts → retiré (le module est partagé serveur + CLI).
+- better-auth 1.7 : `hooks.before/after` = handler unique en top-level ; les hooks typés avec `path`/`context` passent
+  par un **plugin** local (`hooks: { before: [{ matcher, handler }] }`).
+- Les after-hooks doivent retourner un objet (`return {}`) sinon crash interne (`result.headers` de undefined) —
+  y compris sur les `return;` précoces (ex. email inconnu → 500 sinon).
+- `PGLiteSocketServer` (L majuscule) dans `@electric-sql/pglite-socket` ; sous `tsx`, utiliser `import * as ns`.
+- Les processus lancés en arrière-plan ne survivent pas entre deux appels shell de l'agent → smoke en une seule commande.
+- `curl` bloqué → smoke via `node --input-type=module` + `fetch` sur 127.0.0.1.
 
 ## Prochaine étape (à valider avant code)
 
-Étape 2 — Auth + rôles : schéma Drizzle (`user`/`session`/`account`/`verification` + `rate_limit`/`audit_log`),
-Better Auth 1.7 + plugin admin + Argon2id via la factory `src/server/auth/create-auth.ts`, gardes
-`src/server/guards.ts`, logique pure `authz.ts`, hooks (rate-limit, verrouillage, politique mdp 12–128), scripts
-`create-admin`, migrations `drizzle/0000_init.sql`, tests PGlite.
-
-## Blocages / erreurs signalées
-
-- `"type": "commonjs"` dans package.json cassait le build Next 16 (sources ESM) → package passé en `"type": "module"`
-  (les scripts `.mts` restent ESM). Corrigé dans l'étape 1.
-- `eslint-config-next` v16 n'exporte plus `./vitest` → config flat via `core-web-vitals` + `typescript`. Corrigé.
-- `curl` est bloqué dans l'environnement de l'agent → smoke tests via `node --input-type=module` + `fetch` sur 127.0.0.1.
-- `next start` avertit avec `output: standalone` → smoke via `node .next/standalone/server.js`.
+Étape 3 — pages `/[lang]/login`, `/[lang]/change-password`, déconnexion POST, `/[lang]/welcome` (invitations) :
+formulaires en `fetch` client vers `/api/auth/*` (le rate-limit ne s'applique pas aux appels serveur directs),
+`safeRedirect` (liste blanche), erreurs 401 identiques traduites, 429/banni gérés, redirection `mustChangePassword`.

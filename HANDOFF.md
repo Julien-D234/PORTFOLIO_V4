@@ -3,7 +3,8 @@
 Projet reconstruit de zéro dans `Julien-D234/PORTFOLIO_V4` (l'ancien `PORTFOLIO_V3` reste en référence).
 Branche de travail : `vibe/rebuild-v4-ad0ea2`, livraison par PR vers `main` : **PR draft [#10](https://github.com/Julien-D234/PORTFOLIO_V4/pull/10)** (étape 1).
 
-État : **étape 1 (socle) en cours** — voir `ROADMAP.md` (vue d'ensemble) et `roadmap_current.md` (tâche en cours).
+État : **étape 1 (socle) mergée** (PR #10, `main` = `aa5115c`) ; **étape 2 (auth + rôles) en cours** sur
+`vibe/etape-2-auth` — voir `ROADMAP.md` et `roadmap_current.md`.
 
 ## Décisions actées
 
@@ -32,6 +33,9 @@ npm run db:migrate
 - Pas de daemon Docker côté agent : PGlite pour la DB, job CI `docker` pour l'image.
 - Next 16 : `proxy.ts` (pas `middleware.ts`), `params` = Promise, `next typegen` via `npm run typecheck`.
 - Ne jamais committer `.env` ni afficher de secret ; push/PR via `gh` (authentifié Julien-D234).
+- better-auth 1.7 : after-hooks doivent retourner `{}` (même sur les retours précoces) ; hooks typés via plugin local.
+- `PGLiteSocketServer` = L majuscule (`@electric-sql/pglite-socket`), import namespace sous `tsx`.
+- Les processus en arrière-plan ne survivent pas entre deux appels shell → tout lancer dans une seule commande.
 - `next start` avertit avec `output: standalone` → smoke via `node .next/standalone/server.js`.
 - `curl` est bloqué dans l'environnement de l'agent → smoke via `node --input-type=module` + `fetch` sur `127.0.0.1`.
 - Push via `git push` (les permissions de l'app GitHub `MistralAI` ont été passées en Contents: Read and write sur
