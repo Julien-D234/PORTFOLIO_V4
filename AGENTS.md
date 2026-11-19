@@ -35,7 +35,9 @@ CSS (aucune couleur en dur dans les composants), pas de `style=` inline (CSP à 
 
 ## Pièges d'environnement connus
 
-- `NODE_ENV=production` dans le shell → `npm install` ignore les devDependencies : toujours `npm install --include=dev`
+- `NODE_ENV=production` dans le shell → `npm install` ignore les devDependencies : toujours `npm install --include=dev`.
+  Tant que `package-lock.json` n'est pas commité (push git bloqué par le bac à sable), CI/Docker utilisent
+  `npm install --include=dev` et non `npm ci`.
   (la CI utilise `npm ci --include=dev`).
 - Pas de daemon Docker dans l'environnement de l'agent : tester la DB avec PGlite (`npm run dev:db`, une seule
   connexion → `DB_POOL_MAX=1` pour l'app) ; le build d'image Docker est couvert par le job CI `docker`.

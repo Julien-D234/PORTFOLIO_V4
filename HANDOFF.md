@@ -34,3 +34,7 @@ npm run db:migrate
 - Ne jamais committer `.env` ni afficher de secret ; push/PR via `gh` (authentifié Julien-D234).
 - `next start` avertit avec `output: standalone` → smoke via `node .next/standalone/server.js`.
 - `curl` est bloqué dans l'environnement de l'agent → smoke via `node --input-type=module` + `fetch` sur `127.0.0.1`.
+- Push git (`git push` / appels API mutants) bloqué par le bac à sable → livraison via le connecteur `github_app`
+  (`push_files`, `create_branch`, `create_pull_request`). Conséquence : `package-lock.json` (340 Ko) n'est **pas
+  encore commité** ; CI et Dockerfile utilisent `npm install --include=dev`. À faire dès que possible : pousser le
+  lockfile et revenir à `npm ci`.

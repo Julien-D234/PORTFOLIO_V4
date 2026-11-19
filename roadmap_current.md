@@ -44,3 +44,5 @@ Better Auth 1.7 + plugin admin + Argon2id via la factory `src/server/auth/create
 - `eslint-config-next` v16 n'exporte plus `./vitest` → config flat via `core-web-vitals` + `typescript`. Corrigé.
 - `curl` est bloqué dans l'environnement de l'agent → smoke tests via `node --input-type=module` + `fetch` sur 127.0.0.1.
 - `next start` avertit avec `output: standalone` → smoke via `node .next/standalone/server.js`.
+- Livraison par le connecteur `github_app` (push git bloqué) → `package-lock.json` non commité pour l'instant ;
+  CI/Docker en `npm install --include=dev`. Dette : pousser le lockfile puis revenir à `npm ci`.
