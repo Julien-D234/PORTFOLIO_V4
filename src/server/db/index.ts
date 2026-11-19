@@ -2,8 +2,9 @@ import "server-only";
 import { drizzle } from "drizzle-orm/node-postgres";
 import pg from "pg";
 import { requireEnv } from "../env";
+import * as schema from "./schema";
 
-type Db = ReturnType<typeof drizzle>;
+type Db = ReturnType<typeof drizzle<typeof schema>>;
 
 declare global {
   var __portfolioDb: { pool: pg.Pool; db: Db } | undefined;
@@ -16,7 +17,7 @@ export function getDb(): Db {
       connectionString: requireEnv("DATABASE_URL"),
       max: Number.isFinite(max) && max > 0 ? max : 10,
     });
-    globalThis.__portfolioDb = { pool, db: drizzle(pool) };
+    globalThis.__portfolioDb = { pool, db: drizzle(pool, { schema }) };
   }
   return globalThis.__portfolioDb.db;
 }
