@@ -1,0 +1,12 @@
+{
+  "app": {
+    "title": "PORTFOLIO_V4",
+    "description": "Personal portfolio — projects and mini-games."
+  },
+  "theme": {
+    "toggle": "Toggle theme",
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark"
+  }
+}
