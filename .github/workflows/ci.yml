@@ -15,7 +15,8 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - run: npm ci --include=dev
+      # package-lock.json pas encore commité (livraison via connecteur) : npm install tant que le lockfile n'est pas poussé
+      - run: npm install --include=dev
       - run: npm run check
       - run: npm run build
       - run: npm audit --omit=dev --audit-level=high

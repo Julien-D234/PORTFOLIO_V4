@@ -4,8 +4,9 @@ WORKDIR /app
 
 FROM base AS deps
 ENV NODE_ENV=development
-COPY package.json package-lock.json ./
-RUN npm ci --include=dev
+COPY package.json ./
+# package-lock.json pas encore commité (voir HANDOFF) : npm install tant que le lockfile n'est pas poussé
+RUN npm install --include=dev
 
 FROM base AS build
 ENV NODE_ENV=production
@@ -15,8 +16,8 @@ RUN npm run build
 
 FROM base AS tools
 ENV NODE_ENV=production
-COPY package.json package-lock.json ./
-RUN npm ci --include=dev
+COPY package.json ./
+RUN npm install --include=dev
 COPY . .
 USER node
 CMD ["npm", "run", "db:migrate"]
