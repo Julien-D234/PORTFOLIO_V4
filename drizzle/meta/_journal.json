@@ -15,6 +15,13 @@
       "when": 1795172373366,
       "tag": "0001_wealthy_excalibur",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795174399821,
+      "tag": "0002_wise_marvel_boy",
+      "breakpoints": true
     }
   ]
 }
