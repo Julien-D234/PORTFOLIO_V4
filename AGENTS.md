@@ -25,7 +25,7 @@ ne doit l'importer directement :
 |---|---|
 | Base de données | `src/server/db/index.ts` (seul import de `pg` / `drizzle-orm`) |
 | Auth | `src/server/auth/create-auth.ts` (seul import de `better-auth`) + logique pure `src/server/auth/authz.ts` |
-| Stockage médias | `src/server/media/store.ts` (FS maintenant, S3 plus tard) |
+| Stockage médias | `src/server/media/index.ts` (sharp + FS maintenant, S3 plus tard) |
 | i18n | `src/i18n/` + `messages/*.json` (maison, remplaçable par next-intl) |
 | Rate-limit | `src/server/rate-limit.ts` (table Postgres maintenant, Redis plus tard) |
 | Invitations / e-mail | `src/server/admin/invitations.ts` (lien manuel maintenant, SMTP plus tard) |

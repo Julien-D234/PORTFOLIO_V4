@@ -43,6 +43,7 @@ export function json(data: unknown, status = 200, headers: Record<string, string
 }
 
 export function errorResponse(e: unknown): Response {
+  if (e instanceof Response) return e;
   if (e instanceof HttpError) return json({ error: e.code }, e.status);
   console.error(e);
   return json({ error: "INTERNAL" }, 500);
