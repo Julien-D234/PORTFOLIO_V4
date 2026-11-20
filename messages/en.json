@@ -46,8 +46,17 @@
     }
   },
   "admin": {
-    "nav": { "dashboard": "Dashboard", "users": "Users", "audit": "Audit" },
-    "dashboard": { "title": "Administration", "usersCount": "Accounts", "auditLink": "Audit log" },
+    "nav": {
+      "dashboard": "Dashboard",
+      "users": "Users",
+      "audit": "Audit",
+      "projects": "Projects"
+    },
+    "dashboard": {
+      "title": "Administration",
+      "usersCount": "Accounts",
+      "auditLink": "Audit log"
+    },
     "users": {
       "title": "Users",
       "search": "Search (email or name)",
@@ -93,7 +102,13 @@
         "confirmDelete": "Delete permanently? Retype the email:",
         "banReason": "Ban reason",
         "banDuration": "Duration",
-        "durations": { "3600": "1 hour", "86400": "1 day", "604800": "7 days", "2592000": "30 days", "0": "Permanent" },
+        "durations": {
+          "3600": "1 hour",
+          "86400": "1 day",
+          "604800": "7 days",
+          "2592000": "30 days",
+          "0": "Permanent"
+        },
         "errors": {
           "selfAction": "Action on your own account is forbidden.",
           "lastAdmin": "The last administrator is protected.",
@@ -112,6 +127,75 @@
       "actor": "Actor",
       "date": "Date",
       "empty": "No entries."
+    },
+    "projects": {
+      "list": {
+        "title": "Projects",
+        "new": "New project",
+        "empty": "No projects yet.",
+        "slug": "Slug",
+        "status": "Status",
+        "position": "Position",
+        "tags": "Tags",
+        "updated": "Updated",
+        "edit": "Edit",
+        "draft": "Draft",
+        "published": "Published"
+      },
+      "editor": {
+        "titleNew": "New project",
+        "titleEdit": "Edit project",
+        "back": "Back to list",
+        "tabs": {
+          "fr": "French",
+          "en": "English"
+        },
+        "fields": {
+          "slug": "Slug (URL)",
+          "url": "Site URL (https)",
+          "repoUrl": "Repository URL (https)",
+          "position": "Position",
+          "title": "Title",
+          "summary": "Summary",
+          "description": "Description (plain text)",
+          "coverAlt": "Cover alternative text",
+          "cover": "Cover image",
+          "tags": "Tags (comma separated)",
+          "gallery": "Gallery",
+          "alt": "Alternative text",
+          "caption": "Caption"
+        },
+        "actions": {
+          "save": "Save",
+          "saving": "Saving…",
+          "saved": "Saved",
+          "publish": "Publish",
+          "unpublish": "Unpublish",
+          "delete": "Delete…",
+          "upload": "Upload an image",
+          "uploading": "Uploading…",
+          "removeImage": "Remove",
+          "unsaved": "Unsaved changes",
+          "deleteConfirm": "Type the project slug to confirm deletion",
+          "deleteCancel": "Cancel",
+          "deleteConfirmAction": "Delete permanently"
+        },
+        "errors": {
+          "INVALID_INPUT": "Invalid input",
+          "SLUG_TAKEN": "This slug is already taken",
+          "INVALID_MEDIA": "Unknown or deleted media",
+          "MISSING_FR_CONTENT": "French title and summary are required to publish",
+          "SLUG_MISMATCH": "The typed slug does not match",
+          "PROJECT_NOT_FOUND": "Project not found",
+          "RATE_LIMITED": "Too many requests, try again in a minute",
+          "FORBIDDEN": "Forbidden request",
+          "INTERNAL": "Internal error"
+        },
+        "status": {
+          "draft": "Draft",
+          "published": "Published"
+        }
+      }
     }
   },
   "welcome": {
@@ -126,6 +210,22 @@
       "mismatch": "Passwords do not match.",
       "rateLimited": "Too many attempts. Try again in a minute.",
       "network": "Network error. Please retry."
+    }
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "A selection of personal projects.",
+    "empty": "No published projects yet.",
+    "viewProject": "View project",
+    "backToList": "Back to projects",
+    "site": "Visit the site",
+    "repo": "Source code",
+    "gallery": "Gallery",
+    "publishedOn": "Published on",
+    "scrollHint": "Scroll to browse projects",
+    "nav": {
+      "prev": "Previous project",
+      "next": "Next project"
     }
   }
 }

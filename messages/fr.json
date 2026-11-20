@@ -46,8 +46,17 @@
     }
   },
   "admin": {
-    "nav": { "dashboard": "Tableau de bord", "users": "Utilisateurs", "audit": "Audit" },
-    "dashboard": { "title": "Administration", "usersCount": "Comptes", "auditLink": "Journal d'audit" },
+    "nav": {
+      "dashboard": "Tableau de bord",
+      "users": "Utilisateurs",
+      "audit": "Audit",
+      "projects": "Projets"
+    },
+    "dashboard": {
+      "title": "Administration",
+      "usersCount": "Comptes",
+      "auditLink": "Journal d'audit"
+    },
     "users": {
       "title": "Utilisateurs",
       "search": "Rechercher (e-mail ou nom)",
@@ -93,7 +102,13 @@
         "confirmDelete": "Supprimer définitivement ? Retapez l'e-mail :",
         "banReason": "Motif du bannissement",
         "banDuration": "Durée",
-        "durations": { "3600": "1 heure", "86400": "1 jour", "604800": "7 jours", "2592000": "30 jours", "0": "Définitif" },
+        "durations": {
+          "3600": "1 heure",
+          "86400": "1 jour",
+          "604800": "7 jours",
+          "2592000": "30 jours",
+          "0": "Définitif"
+        },
         "errors": {
           "selfAction": "Action sur votre propre compte interdite.",
           "lastAdmin": "Le dernier administrateur est protégé.",
@@ -112,6 +127,75 @@
       "actor": "Acteur",
       "date": "Date",
       "empty": "Aucune entrée."
+    },
+    "projects": {
+      "list": {
+        "title": "Projets",
+        "new": "Nouveau projet",
+        "empty": "Aucun projet pour le moment.",
+        "slug": "Slug",
+        "status": "Statut",
+        "position": "Position",
+        "tags": "Tags",
+        "updated": "Modifié le",
+        "edit": "Modifier",
+        "draft": "Brouillon",
+        "published": "Publié"
+      },
+      "editor": {
+        "titleNew": "Nouveau projet",
+        "titleEdit": "Modifier le projet",
+        "back": "Retour à la liste",
+        "tabs": {
+          "fr": "Français",
+          "en": "English"
+        },
+        "fields": {
+          "slug": "Slug (URL)",
+          "url": "URL du site (https)",
+          "repoUrl": "URL du dépôt (https)",
+          "position": "Position",
+          "title": "Titre",
+          "summary": "Résumé",
+          "description": "Description (texte brut)",
+          "coverAlt": "Texte alternatif de la couverture",
+          "cover": "Image de couverture",
+          "tags": "Tags (séparés par des virgules)",
+          "gallery": "Galerie",
+          "alt": "Texte alternatif",
+          "caption": "Légende"
+        },
+        "actions": {
+          "save": "Enregistrer",
+          "saving": "Enregistrement…",
+          "saved": "Enregistré",
+          "publish": "Publier",
+          "unpublish": "Dépublier",
+          "delete": "Supprimer…",
+          "upload": "Envoyer une image",
+          "uploading": "Envoi…",
+          "removeImage": "Retirer",
+          "unsaved": "Modifications non enregistrées",
+          "deleteConfirm": "Retapez le slug du projet pour confirmer la suppression",
+          "deleteCancel": "Annuler",
+          "deleteConfirmAction": "Supprimer définitivement"
+        },
+        "errors": {
+          "INVALID_INPUT": "Données invalides",
+          "SLUG_TAKEN": "Ce slug est déjà utilisé",
+          "INVALID_MEDIA": "Média inconnu ou supprimé",
+          "MISSING_FR_CONTENT": "Titre et résumé en français requis pour publier",
+          "SLUG_MISMATCH": "Le slug saisi ne correspond pas",
+          "PROJECT_NOT_FOUND": "Projet introuvable",
+          "RATE_LIMITED": "Trop de requêtes, réessayez dans une minute",
+          "FORBIDDEN": "Requête interdite",
+          "INTERNAL": "Erreur interne"
+        },
+        "status": {
+          "draft": "Brouillon",
+          "published": "Publié"
+        }
+      }
     }
   },
   "welcome": {
@@ -126,6 +210,22 @@
       "mismatch": "Les mots de passe ne correspondent pas.",
       "rateLimited": "Trop de tentatives. Réessayez dans une minute.",
       "network": "Erreur réseau. Réessayez."
+    }
+  },
+  "projects": {
+    "title": "Projets",
+    "subtitle": "Une sélection de projets personnels.",
+    "empty": "Aucun projet publié pour le moment.",
+    "viewProject": "Voir le projet",
+    "backToList": "Retour aux projets",
+    "site": "Voir le site",
+    "repo": "Code source",
+    "gallery": "Galerie",
+    "publishedOn": "Publié le",
+    "scrollHint": "Défiler pour parcourir les projets",
+    "nav": {
+      "prev": "Projet précédent",
+      "next": "Projet suivant"
     }
   }
 }

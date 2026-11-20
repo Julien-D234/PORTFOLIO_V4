@@ -1,0 +1,272 @@
+<!doctype html>
+<!-- MAQUETTE projets V2 (charte V2, clair + sombre) — à valider visuellement avant application aux pages -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maquette — Projets V2</title>
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #f4f1ea; --card: #ffffff; --ink: #141a4a; --line: #d9d4c7; --txt: #141a4a;
+    --mut: #565b7d; --acc: #2f4bff; --on-acc: #ffffff; --shadow-c: #141a4a;
+    --hl: #ffd84a; --on-hl: #141a4a; --ok: #0f7a4d; --warn: #8a5a00; --bad: #c62828;
+    --duo-dark: #141a4a; --duo-light: #f7f3e3;
+    --r: 4px; --bw: 2px; --sh: 4px;
+  }
+  [data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #0a0a0b; --card: #141416; --ink: #ededee; --line: #26262a; --txt: #ededee;
+    --mut: #8b8b93; --acc: #6d8cff; --on-acc: #0a0a0b; --shadow-c: #6d8cff;
+    --ok: #3ecf8e; --warn: #e5a93c; --bad: #ef5b5b;
+    --duo-dark: #0b0f2e; --duo-light: #aab8ff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #0a0a0b; --card: #141416; --ink: #ededee; --line: #26262a; --txt: #ededee;
+      --mut: #8b8b93; --acc: #6d8cff; --on-acc: #0a0a0b; --shadow-c: #6d8cff;
+      --ok: #3ecf8e; --warn: #e5a93c; --bad: #ef5b5b;
+      --duo-dark: #0b0f2e; --duo-light: #aab8ff;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+  body { background: var(--bg); color: var(--txt); font-family: system-ui, sans-serif; font-size: 15px; line-height: 1.5; }
+  h1, h2, h3, button, time, .tag { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+  :focus-visible { outline: 3px solid var(--acc); outline-offset: 3px; }
+  a { color: var(--acc); }
+
+  .theme-toggle {
+    position: fixed; right: 12px; bottom: 12px; z-index: 50;
+    border: var(--bw) solid var(--ink); border-radius: var(--r); background: var(--card); color: var(--txt);
+    box-shadow: var(--sh) var(--sh) 0 var(--shadow-c); padding: 6px 10px; font-size: 13px; cursor: pointer;
+  }
+  .mock-nav { display: flex; gap: 8px; padding: 12px 16px; align-items: center; flex-wrap: wrap; }
+  .mock-nav button {
+    border: var(--bw) solid var(--ink); border-radius: var(--r); background: var(--card); color: var(--txt);
+    box-shadow: var(--sh) var(--sh) 0 var(--shadow-c); padding: 6px 10px; font-size: 13px; cursor: pointer;
+  }
+  .mock-nav button[aria-pressed="true"] { background: var(--hl); color: var(--on-hl); }
+
+  /* duotone image (bichromie unique, pas de couleur au survol) */
+  .duo { position: relative; overflow: hidden; background: var(--duo-light); }
+  .duo img { display: block; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.05); mix-blend-mode: multiply; }
+  .duo::after { content: ""; position: absolute; inset: 0; background: var(--duo-dark); mix-blend-mode: lighten; pointer-events: none; }
+
+  .tag {
+    display: inline-block; border: var(--bw) solid var(--ink); border-radius: var(--r);
+    padding: 1px 7px; font-size: 12px; background: var(--card); color: var(--txt);
+  }
+  .btn {
+    display: inline-block; border: var(--bw) solid var(--ink); border-radius: var(--r);
+    padding: 6px 12px; font-size: 14px; background: var(--hl); color: var(--on-hl);
+    box-shadow: var(--sh) var(--sh) 0 var(--shadow-c); text-decoration: none; cursor: pointer;
+  }
+  .btn.ghost { background: var(--card); color: var(--txt); }
+  .card { border: var(--bw) solid var(--ink); border-radius: var(--r); background: var(--card); box-shadow: var(--sh) var(--sh) 0 var(--shadow-c); }
+  mark { background: var(--hl); color: var(--on-hl); padding: 0 2px; }
+
+  /* ===== deck immersif ===== */
+  #deck { position: relative; height: 100dvh; overflow: hidden; background: #000; }
+  #deck .track { height: 100%; transition: transform 1400ms cubic-bezier(.77,0,.18,1); will-change: transform; }
+  @media (prefers-reduced-motion: reduce) { #deck .track { transition: none; } }
+  .slide { position: relative; height: 100dvh; overflow: hidden; }
+  .slide .duo { position: absolute; inset: 0; }
+  .slide .veil { position: absolute; inset: 0; background: linear-gradient(180deg, #000d 0%, #0005 45%, #0002 100%); }
+  .slide .content {
+    position: absolute; left: 0; right: 0; bottom: 0; padding: clamp(16px, 5vw, 64px);
+    display: flex; flex-direction: column; gap: 12px; align-items: flex-start; color: #f4f1ea;
+  }
+  .slide h2 { margin: 0; font-size: clamp(28px, 6vw, 64px); line-height: 1.05; color: #f4f1ea; text-wrap: balance; }
+  .slide .summary { max-width: 60ch; color: #d8d4c9; font-size: 16px; }
+  .slide .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .slide .tag { background: #141416cc; color: #ededee; border-color: #ededee; }
+  .dots { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 5; }
+  .dots button {
+    width: 14px; height: 14px; border-radius: var(--r); border: var(--bw) solid #f4f1ea;
+    background: transparent; cursor: pointer; padding: 0;
+  }
+  .dots button[aria-current="true"] { background: var(--hl); border-color: var(--hl); }
+  .scroll-hint {
+    position: absolute; left: 50%; transform: translateX(-50%); bottom: 10px; z-index: 5;
+    color: #d8d4c9; font-size: 12px; font-family: ui-monospace, Menlo, Consolas, monospace;
+  }
+
+  /* ===== page détail ===== */
+  #detail { display: none; }
+  .detail-wrap { max-width: 46rem; margin: 0 auto; padding: 24px 16px 96px; display: flex; flex-direction: column; gap: 16px; }
+  .detail-wrap h1 { margin: 0; font-size: clamp(26px, 5vw, 44px); line-height: 1.1; text-wrap: balance; }
+  .meta { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; color: var(--mut); font-size: 13px; }
+  .links { display: flex; gap: 8px; flex-wrap: wrap; }
+  .desc { white-space: pre-wrap; font-size: 15px; }
+  .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  @media (max-width: 640px) { .gallery { grid-template-columns: 1fr; } }
+  .gallery figure { margin: 0; }
+  .gallery .duo { aspect-ratio: 16 / 10; border: var(--bw) solid var(--ink); border-radius: var(--r); box-shadow: var(--sh) var(--sh) 0 var(--shadow-c); }
+  .gallery figcaption { font-size: 12px; color: var(--mut); padding-top: 6px; font-family: ui-monospace, Menlo, Consolas, monospace; }
+  @media (max-width: 640px) { :root { --sh: 3px; } }
+</style>
+</head>
+<body>
+<nav class="mock-nav">
+  <strong style="font-family:ui-monospace,Menlo,Consolas,monospace">PORTFOLIO_V4</strong>
+  <button id="tab-deck" aria-pressed="true">/fr/projects (deck)</button>
+  <button id="tab-detail" aria-pressed="false">/fr/projects/mon-projet (détail)</button>
+</nav>
+
+<!-- ============ VUE 1 : deck immersif ============ -->
+<section id="deck" aria-label="Projets">
+  <div class="track" id="track">
+    <article class="slide">
+      <div class="duo"><img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000'%3E%3Crect width='1600' height='1000' fill='%23888'/%3E%3Ccircle cx='1150' cy='330' r='260' fill='%23ccc'/%3E%3Crect x='120' y='560' width='700' height='260' fill='%23555'/%3E%3C/svg%3E"></div>
+      <div class="veil"></div>
+      <div class="content">
+        <div class="tags"><span class="tag">Web</span><span class="tag">Next.js</span><span class="tag">PostgreSQL</span></div>
+        <h2>Mon projet <mark>portfolio</mark></h2>
+        <p class="summary">Un portfolio rebuild from scratch : auth, admin, projets bilingues et mini-jeux.</p>
+        <a class="btn" href="#" onclick="showDetail();return false;">Voir le projet →</a>
+      </div>
+    </article>
+    <article class="slide">
+      <div class="duo"><img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000'%3E%3Crect width='1600' height='1000' fill='%23999'/%3E%3Cpath d='M0 700 L500 250 L900 620 L1300 180 L1600 500 L1600 1000 L0 1000 Z' fill='%23444'/%3E%3Ccircle cx='350' cy='260' r='120' fill='%23ddd'/%3E%3C/svg%3E"></div>
+      <div class="veil"></div>
+      <div class="content">
+        <div class="tags"><span class="tag">Jeu</span><span class="tag">Canvas</span></div>
+        <h2>Mini-jeu arcade</h2>
+        <p class="summary">Un petit jeu jouable dans le navigateur avec remontée de scores.</p>
+        <a class="btn" href="#" onclick="showDetail();return false;">Voir le projet →</a>
+      </div>
+    </article>
+    <article class="slide">
+      <div class="duo"><img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000'%3E%3Crect width='1600' height='1000' fill='%23777'/%3E%3Cg stroke='%23eee' stroke-width='26'%3E%3Cline x1='0' y1='200' x2='1600' y2='200'/%3E%3Cline x1='0' y1='500' x2='1600' y2='500'/%3E%3Cline x1='0' y1='800' x2='1600' y2='800'/%3E%3C/g%3E%3C/svg%3E"></div>
+      <div class="veil"></div>
+      <div class="content">
+        <div class="tags"><span class="tag">Outil</span><span class="tag">CLI</span></div>
+        <h2>Outil en ligne de commande</h2>
+        <p class="summary">Un CLI interne pour gérer les déploiements du VPS.</p>
+        <a class="btn" href="#" onclick="showDetail();return false;">Voir le projet →</a>
+      </div>
+    </article>
+  </div>
+  <div class="dots" id="dots" role="tablist" aria-label="Projets"></div>
+  <div class="scroll-hint" id="hint">Défiler pour parcourir les projets ↓</div>
+</section>
+
+<!-- ============ VUE 2 : page détail ============ -->
+<section id="detail">
+  <div class="detail-wrap">
+    <a href="#" onclick="showDeck();return false;">← Retour aux projets</a>
+    <h1>Mon projet portfolio</h1>
+    <div class="meta">
+      <time datetime="2026-11-20">2026-11-20</time>
+      <span class="tag">Web</span><span class="tag">Next.js</span><span class="tag">PostgreSQL</span>
+    </div>
+    <div class="links">
+      <a class="btn ghost" href="#">Voir le site ↗</a>
+      <a class="btn ghost" href="#">Code source ↗</a>
+    </div>
+    <p class="desc">Rebuild complet du portfolio : authentification avec rôles, espace admin,
+invitations à usage unique, projets bilingues avec upload de médias traités côté serveur
+(WebP, miniatures, métadonnées supprimées) et mini-jeux avec remontée de statistiques.
+
+Le site tourne sur un VPS Debian 12 derrière Caddy, conteneurisé avec Docker.</p>
+    <h3>Galerie</h3>
+    <div class="gallery">
+      <figure>
+        <div class="duo"><img alt="Capture du deck" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='800' height='500' fill='%23888'/%3E%3Crect x='60' y='300' width='680' height='140' fill='%23eee'/%3E%3C/svg%3E"></div>
+        <figcaption>Le deck immersif — une slide par projet</figcaption>
+      </figure>
+      <figure>
+        <div class="duo"><img alt="Capture de l'admin" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='800' height='500' fill='%23999'/%3E%3Crect x='60' y='60' width='300' height='380' fill='%23555'/%3E%3Crect x='400' y='60' width='340' height='60' fill='%23ddd'/%3E%3C/svg%3E"></div>
+        <figcaption>L'éditeur admin des projets</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<button class="theme-toggle" id="theme-toggle" type="button">thème : système</button>
+
+<script>
+  // bascule de thème (système → clair → sombre), comme le vrai ThemeToggle
+  const root = document.documentElement;
+  const toggle = document.getElementById("theme-toggle");
+  const labels = { system: "système", light: "clair", dark: "sombre" };
+  let mode = localStorage.getItem("mock-theme") || "system";
+  function apply() {
+    if (mode === "system") root.removeAttribute("data-theme");
+    else root.setAttribute("data-theme", mode);
+    toggle.textContent = "thème : " + labels[mode];
+  }
+  toggle.addEventListener("click", () => {
+    mode = mode === "system" ? "light" : mode === "light" ? "dark" : "system";
+    localStorage.setItem("mock-theme", mode);
+    apply();
+  });
+  apply();
+
+  // navigation entre les deux vues de la maquette
+  const deck = document.getElementById("deck");
+  const detail = document.getElementById("detail");
+  const tabDeck = document.getElementById("tab-deck");
+  const tabDetail = document.getElementById("tab-detail");
+  function showDeck() { deck.style.display = ""; detail.style.display = "none"; tabDeck.setAttribute("aria-pressed", "true"); tabDetail.setAttribute("aria-pressed", "false"); }
+  function showDetail() { deck.style.display = "none"; detail.style.display = ""; tabDeck.setAttribute("aria-pressed", "false"); tabDetail.setAttribute("aria-pressed", "true"); window.scrollTo(0, 0); }
+  tabDeck.addEventListener("click", showDeck);
+  tabDetail.addEventListener("click", showDetail);
+
+  // deck immersif : roue interceptée, un écran à la fois, 1400 ms
+  const SCROLL_MS = 1400;
+  const track = document.getElementById("track");
+  const slides = track.children.length;
+  const dots = document.getElementById("dots");
+  const hint = document.getElementById("hint");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let index = 0, animating = false;
+  for (let i = 0; i < slides; i++) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.setAttribute("aria-label", "Projet " + (i + 1));
+    b.addEventListener("click", () => goTo(i));
+    dots.appendChild(b);
+  }
+  function render() {
+    track.style.transform = "translateY(" + (-index * 100) + "dvh)";
+    [...dots.children].forEach((d, i) => d.setAttribute("aria-current", i === index ? "true" : "false"));
+    hint.style.opacity = index === 0 ? "1" : "0";
+  }
+  function goTo(i) {
+    if (animating || i === index || i < 0 || i >= slides) return;
+    animating = true;
+    index = i;
+    render();
+    setTimeout(() => { animating = false; }, reduce ? 0 : SCROLL_MS);
+  }
+  let wheelAcc = 0, wheelTimer = null;
+  window.addEventListener("wheel", (e) => {
+    if (deck.style.display === "none") return;
+    e.preventDefault();
+    wheelAcc += e.deltaY;
+    clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(() => { wheelAcc = 0; }, 200);
+    if (Math.abs(wheelAcc) > 40) { goTo(index + (wheelAcc > 0 ? 1 : -1)); wheelAcc = 0; }
+  }, { passive: false });
+  let touchY = null;
+  window.addEventListener("touchstart", (e) => { if (deck.style.display !== "none") touchY = e.touches[0].clientY; }, { passive: true });
+  window.addEventListener("touchend", (e) => {
+    if (touchY == null || deck.style.display === "none") return;
+    const dy = touchY - e.changedTouches[0].clientY;
+    if (Math.abs(dy) > 50) goTo(index + (dy > 0 ? 1 : -1));
+    touchY = null;
+  }, { passive: true });
+  window.addEventListener("keydown", (e) => {
+    if (deck.style.display === "none") return;
+    if (e.key === "ArrowDown" || e.key === "PageDown") { e.preventDefault(); goTo(index + 1); }
+    if (e.key === "ArrowUp" || e.key === "PageUp") { e.preventDefault(); goTo(index - 1); }
+    if (e.key === "Home") { e.preventDefault(); goTo(0); }
+    if (e.key === "End") { e.preventDefault(); goTo(slides - 1); }
+  });
+  render();
+</script>
+</body>
+</html>
