@@ -44,5 +44,88 @@
     "signOut": {
       "label": "Sign out"
     }
+  },
+  "admin": {
+    "nav": { "dashboard": "Dashboard", "users": "Users", "audit": "Audit" },
+    "dashboard": { "title": "Administration", "usersCount": "Accounts", "auditLink": "Audit log" },
+    "users": {
+      "title": "Users",
+      "search": "Search (email or name)",
+      "email": "Email",
+      "name": "Name",
+      "role": "Role",
+      "status": "Status",
+      "created": "Created",
+      "edit": "Edit",
+      "statusActive": "Active",
+      "statusBanned": "Banned",
+      "statusLocked": "Locked",
+      "mustChange": "password to change",
+      "prev": "Previous",
+      "next": "Next",
+      "page": "Page",
+      "new": {
+        "title": "New user",
+        "email": "Email",
+        "name": "Name",
+        "submit": "Create and get invitation link",
+        "submitting": "Creating…",
+        "linkLabel": "Invitation link (to send to the recipient, valid 48 h, single use)",
+        "copy": "Copy",
+        "copied": "Copied!",
+        "error": "Error while creating."
+      },
+      "detail": {
+        "title": "User",
+        "sessions": "Active sessions",
+        "noSessions": "No active session.",
+        "actions": "Actions",
+        "self": "This is your own account: no actions available here."
+      },
+      "actions": {
+        "setRole": "Role",
+        "ban": "Ban",
+        "unban": "Unban",
+        "revoke": "Revoke sessions",
+        "delete": "Delete",
+        "unlock": "Unlock",
+        "regenerate": "Regenerate invitation",
+        "confirmDelete": "Delete permanently? Retype the email:",
+        "banReason": "Ban reason",
+        "banDuration": "Duration",
+        "durations": { "3600": "1 hour", "86400": "1 day", "604800": "7 days", "2592000": "30 days", "0": "Permanent" },
+        "errors": {
+          "selfAction": "Action on your own account is forbidden.",
+          "lastAdmin": "The last administrator is protected.",
+          "forbidden": "Forbidden.",
+          "notFound": "User not found.",
+          "rateLimited": "Too many requests, try again later.",
+          "network": "Network error."
+        }
+      }
+    },
+    "audit": {
+      "title": "Audit log",
+      "action": "Action",
+      "all": "All",
+      "target": "Target",
+      "actor": "Actor",
+      "date": "Date",
+      "empty": "No entries."
+    }
+  },
+  "welcome": {
+    "title": "Activate your account",
+    "password": "Choose your password (12–128 characters)",
+    "confirm": "Confirm password",
+    "submit": "Activate and sign in",
+    "submitting": "Activating…",
+    "errors": {
+      "invalidLink": "Invalid, expired or already used link.",
+      "passwordPolicy": "Password must be 12 to 128 characters long.",
+      "mismatch": "Passwords do not match.",
+      "rateLimited": "Too many attempts. Try again in a minute.",
+      "network": "Network error. Please retry."
+    }
   }
 }

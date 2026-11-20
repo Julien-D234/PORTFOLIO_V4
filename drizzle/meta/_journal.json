@@ -8,6 +8,13 @@
       "when": 1795105017691,
       "tag": "0000_daffy_carmella_unuscione",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1795172373366,
+      "tag": "0001_wealthy_excalibur",
+      "breakpoints": true
     }
   ]
 }

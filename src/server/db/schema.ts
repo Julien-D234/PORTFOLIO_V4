@@ -95,6 +95,25 @@ export const rateLimit = pgTable(
   (t) => [uniqueIndex("rate_limit_key_unique").on(t.key)],
 );
 
+export const invitation = pgTable(
+  "invitation",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    tokenHash: text("token_hash").notNull(),
+    createdBy: text("created_by").notNull(),
+    expiresAt: timestamp("expires_at", { withTimezone: true, mode: "date" }).notNull(),
+    usedAt: timestamp("used_at", { withTimezone: true, mode: "date" }),
+    createdAt: timestamp("created_at", { withTimezone: true, mode: "date" }).notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("invitation_token_hash_unique").on(t.tokenHash),
+    index("invitation_user_idx").on(t.userId),
+  ],
+);
+
 export const auditLog = pgTable(
   "audit_log",
   {

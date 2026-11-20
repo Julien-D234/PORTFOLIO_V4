@@ -44,5 +44,88 @@
     "signOut": {
       "label": "Se déconnecter"
     }
+  },
+  "admin": {
+    "nav": { "dashboard": "Tableau de bord", "users": "Utilisateurs", "audit": "Audit" },
+    "dashboard": { "title": "Administration", "usersCount": "Comptes", "auditLink": "Journal d'audit" },
+    "users": {
+      "title": "Utilisateurs",
+      "search": "Rechercher (e-mail ou nom)",
+      "email": "E-mail",
+      "name": "Nom",
+      "role": "Rôle",
+      "status": "Statut",
+      "created": "Créé le",
+      "edit": "Modifier",
+      "statusActive": "Actif",
+      "statusBanned": "Banni",
+      "statusLocked": "Verrouillé",
+      "mustChange": "mdp à changer",
+      "prev": "Précédent",
+      "next": "Suivant",
+      "page": "Page",
+      "new": {
+        "title": "Nouvel utilisateur",
+        "email": "E-mail",
+        "name": "Nom",
+        "submit": "Créer et obtenir le lien d'invitation",
+        "submitting": "Création…",
+        "linkLabel": "Lien d'invitation (à transmettre au destinataire, valable 48 h, usage unique)",
+        "copy": "Copier",
+        "copied": "Copié !",
+        "error": "Erreur lors de la création."
+      },
+      "detail": {
+        "title": "Utilisateur",
+        "sessions": "Sessions actives",
+        "noSessions": "Aucune session active.",
+        "actions": "Actions",
+        "self": "C'est votre propre compte : aucune action possible ici."
+      },
+      "actions": {
+        "setRole": "Rôle",
+        "ban": "Bannir",
+        "unban": "Débannir",
+        "revoke": "Révoquer les sessions",
+        "delete": "Supprimer",
+        "unlock": "Déverrouiller",
+        "regenerate": "Régénérer l'invitation",
+        "confirmDelete": "Supprimer définitivement ? Retapez l'e-mail :",
+        "banReason": "Motif du bannissement",
+        "banDuration": "Durée",
+        "durations": { "3600": "1 heure", "86400": "1 jour", "604800": "7 jours", "2592000": "30 jours", "0": "Définitif" },
+        "errors": {
+          "selfAction": "Action sur votre propre compte interdite.",
+          "lastAdmin": "Le dernier administrateur est protégé.",
+          "forbidden": "Action interdite.",
+          "notFound": "Utilisateur introuvable.",
+          "rateLimited": "Trop de requêtes, réessayez plus tard.",
+          "network": "Erreur réseau."
+        }
+      }
+    },
+    "audit": {
+      "title": "Journal d'audit",
+      "action": "Action",
+      "all": "Toutes",
+      "target": "Cible",
+      "actor": "Acteur",
+      "date": "Date",
+      "empty": "Aucune entrée."
+    }
+  },
+  "welcome": {
+    "title": "Activez votre compte",
+    "password": "Choisissez votre mot de passe (12–128 caractères)",
+    "confirm": "Confirmer le mot de passe",
+    "submit": "Activer et se connecter",
+    "submitting": "Activation…",
+    "errors": {
+      "invalidLink": "Lien invalide, expiré ou déjà utilisé.",
+      "passwordPolicy": "Le mot de passe doit faire entre 12 et 128 caractères.",
+      "mismatch": "Les mots de passe ne correspondent pas.",
+      "rateLimited": "Trop de tentatives. Réessayez dans une minute.",
+      "network": "Erreur réseau. Réessayez."
+    }
   }
 }

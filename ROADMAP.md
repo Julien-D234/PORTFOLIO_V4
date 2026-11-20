@@ -7,8 +7,8 @@ Dernière mise à jour : étape 1 (socle) en cours. Tâche en cours et avancemen
 | # | Tâche | Statut | Avancement |
 |---|---|---|---|
 | 1 | Socle technique (Next.js, i18n, CSP, thème V2, ports/adapters, CI, Docker) | ✅ fait (mergé via PR #10) | 100 % |
-| 2 | Authentification + rôles user/admin + garde-fous | 🟡 en cours | voir `roadmap_current.md` |
-| 3 | Page de connexion / changement de mot de passe (pas d'inscription publique) | ⬜ à faire | — |
+| 2 | Authentification + rôles user/admin + garde-fous | ✅ fait (mergé via PR #11) | 100 % |
+| 3 | Pages connexion / changement de mot de passe / déconnexion | 🟡 en cours | voir `roadmap_current.md` |
 | 4 | Administration des comptes (liste, détail, actions, invitations, audit) | ⬜ à faire | — |
 | 5 | Projets (public immersif + détail + admin + upload médias) + charte V2 appliquée | ⬜ à faire | — |
 | 6 | Mini-jeux (page de sélection + API de remontée de stats) | ⬜ à faire | — |

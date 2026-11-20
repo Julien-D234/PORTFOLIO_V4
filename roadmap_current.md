@@ -1,41 +1,42 @@
-# Tâche en cours — Étape 2 : authentification + rôles
+# Tâche en cours — Étape 3 : pages de connexion
 
-État : 🟡 en cours · Branche : `vibe/etape-2-auth` (PR à ouvrir) · Base : `main` (étape 1 mergée via PR #10)
+État : 🟡 en cours · Branche : `vibe/etape-3-login` · Base : `main` (étapes 1+2 mergées, PR #10 + #11)
 
-## Objectif de l'étape 2
+## Objectif de l'étape 3
 
-Auth robuste sans inscription publique : schéma Drizzle (tables Better Auth + `rate_limit` + `audit_log`, migration
-`drizzle/0000_*.sql`), factory testable `src/server/auth/create-auth.ts` (seul import de `better-auth`), logique pure
-`authz.ts`, gardes `src/server/guards.ts` (`requireUser`/`requireAdmin`/`requireApi`), route `/api/auth/[...all]`,
-script `create-admin`, Argon2id, mdp 12–128, sessions 7 j sans cache cookie, rate-limit en base (5/min sur sign-in),
-verrouillage 10 échecs → 15 min, `SELF_ACTION`/`LAST_ADMIN`, impersonation bloquée, audit `login_failed`/`account_locked`.
+Pages d'auth visibles et sûres : `/[lang]/login` (formulaire `fetch` vers `/api/auth/sign-in/email`, erreurs
+traduites 401/403/429, `safeRedirect` anti open-redirect, redirection `mustChangePassword` → change-password),
+`/[lang]/change-password` (derrière `requireUser({ allowMustChangePassword: true })`, hook qui lève
+`mustChangePassword` après succès), bouton déconnexion (POST `/api/auth/sign-out`).
 
 ## Checklist
 
-- [x] `src/server/db/schema.ts` + migration `drizzle/0000_daffy_carmella_unuscione.sql` (`npm run db:generate`)
-- [x] `src/server/auth/password.ts` (Argon2id 64 MiB t=3 p=1, verify sans exception)
-- [x] `src/server/auth/authz.ts` (pur, testé) + `create-auth.ts` (Better Auth 1.7 + plugin admin + plugin local
-  `security-hooks` : impersonation 403, lockout, politique mdp sur endpoints admin, SELF_ACTION/LAST_ADMIN)
-- [x] `src/server/guards.ts` + `src/app/api/auth/[...all]/route.ts`
-- [x] `scripts/create-admin.mts` (mdp saisi masqué, `ADMIN_PASSWORD` pour la CI)
-- [x] Tests : `tests/authz.test.ts` (7), `tests/auth.test.ts` (8, PGlite) → **26 tests au total, `npm run check` vert**
-- [x] `npm run build` vert ; smoke HTTP sur build de prod (PGlite) : mauvais mdp → 401 identique à email inconnu,
-  sign-up → 400 désactivé, bon mdp → 200 + cookie session, `get-session` OK/null, 6e tentative → 429, health OK
+- [x] i18n `auth.*` fr/en (parité testée) : login, changePassword, signOut
+- [x] `src/lib/auth-forms.ts` : `safeRedirect` (blanc `/​{lang}/…`, refuse `//`, `\`, `..`, langues inconnues, non-`/`)
+  + `isValidEmail` + tests (8 cas)
+- [x] `src/lib/password-policy.ts` (constantes sans vendor, importable côté client — argon2 natif sinon dans le bundle)
+- [x] Composants client : `LoginForm`, `ChangePasswordForm`, `SignOutButton` (`useRouter().push`, charte V2)
+- [x] Pages `/[lang]/login` (redirect si déjà connecté, param `?redirect=` sanitizé) et `/[lang]/change-password`
+  (garde `requireUser` avec `allowMustChangePassword`)
+- [x] Hook `after` `/change-password` : lève `mustChangePassword` après succès
+- [x] **30 tests verts**, lint 0 warning, build OK
+- [x] Smoke HTTP (PGlite + prod) : `/fr/login` 200 + formulaire ; `/fr/change-password` anonyme → 307 `/fr/login` ;
+  connecté → 200 ; sign-in 200 ; change-password mauvais actuel → 400 ; OK → 200 ; re-sign-in nouveau mdp → 200 ;
+  sign-out → session null
 - [ ] Commit(s) → push → PR draft → CI verte
 
-## Blocages / erreurs signalées (corrigées dans l'étape)
+## Blocages / erreurs signalées (corrigées)
 
-- `server-only` dans `env.ts` cassait les tests/scripts → retiré (le module est partagé serveur + CLI).
-- better-auth 1.7 : `hooks.before/after` = handler unique en top-level ; les hooks typés avec `path`/`context` passent
-  par un **plugin** local (`hooks: { before: [{ matcher, handler }] }`).
-- Les after-hooks doivent retourner un objet (`return {}`) sinon crash interne (`result.headers` de undefined) —
-  y compris sur les `return;` précoces (ex. email inconnu → 500 sinon).
-- `PGLiteSocketServer` (L majuscule) dans `@electric-sql/pglite-socket` ; sous `tsx`, utiliser `import * as ns`.
-- Les processus lancés en arrière-plan ne survivent pas entre deux appels shell de l'agent → smoke en une seule commande.
-- `curl` bloqué → smoke via `node --input-type=module` + `fetch` sur 127.0.0.1.
+- `@node-rs/argon2` (natif) était tiré dans le bundle client via `password.ts` → constantes déplacées dans
+  `src/lib/password-policy.ts`.
+- `window.location.href` → `useRouter().push()` (règle lint Next).
+- better-auth renvoie 400 `INVALID_PASSWORD` (pas 401) pour un mauvais mdp actuel → mappé dans le formulaire.
 
 ## Prochaine étape (à valider avant code)
 
-Étape 3 — pages `/[lang]/login`, `/[lang]/change-password`, déconnexion POST, `/[lang]/welcome` (invitations) :
-formulaires en `fetch` client vers `/api/auth/*` (le rate-limit ne s'applique pas aux appels serveur directs),
-`safeRedirect` (liste blanche), erreurs 401 identiques traduites, 429/banni gérés, redirection `mustChangePassword`.
+Étape 4 — Administration des comptes : table `invitation` (jeton SHA-256, 48 h, usage unique, lien en fragment
+`/[lang]/welcome#token=…`), `POST /api/admin/users` + régénération, `POST /api/welcome` (public, 10/min/IP,
+connexion immédiate, politique mdp avant consommation, réponse `INVALID_LINK` uniforme), pages
+`/admin`, `/admin/users` (+ new, `[id]`), `/admin/audit`, actions admin (rôle, ban 1h/1j/7j/30j/définitif, débannir,
+révoquer sessions, supprimer en retapant l'e-mail, déverrouiller), `isSameOrigin` sur tout POST admin,
+**toutes les routes admin en POST**, non-admin → 404 sur les pages, matrice de tests + smoke curl.
