@@ -55,8 +55,13 @@ et application de la charte V2 aux pages projets **après validation visuelle de
 - Smoke : PGlite est mono-connexion, le pool pg (max 10) provoquait des ECONNRESET → `DB_POOL_MAX=1` côté smoke (déjà documenté dans AGENTS.md).
 - Union `NodePgDatabase | PgliteDatabase` : éviter `.returning({...})` sur l'union (erreur TS) → ids générés avant insert ; cast confiné `rawTx as unknown as MediaDb` dans les transactions.
 
-## Prochaine étape (à valider avant code)
+## Prochaines étapes (à valider avant code)
 
-Étape 6 — Mini-jeux : schéma (`game`, `game_session`, `game_stat` JSONB), page de sélection, JWT 10 min
-(userId+gameId), `POST /api/v1/games/{slug}/stats` + clé API hachée révocable par jeu, plafonds de vraisemblance,
-rate-limit, revue de sécurité dédiée.
+Décision Julien (actée) : **profils avant mini-jeux**, stats par jeu rattachées plus tard ; les jeux seront
+**ajoutés au fil du temps** (table `game` alimentée dynamiquement — admin/seed — aucun jeu en dur dans le code).
+
+- **Étape 6 — Profil** `/[lang]/profile` : mot de passe, langue préférée ; la page prévoit déjà la place pour les
+  stats par jeu (elles arriveront avec l'étape 7).
+- **Étape 7 — Mini-jeux** : schéma (`game`, `game_session`, `game_stat` JSONB), page de sélection alimentée par la
+  table `game`, JWT 10 min (userId+gameId), `POST /api/v1/games/{slug}/stats` + clé API hachée révocable par jeu,
+  plafonds de vraisemblance, rate-limit, revue de sécurité dédiée.
