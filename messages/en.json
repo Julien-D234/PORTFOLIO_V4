@@ -190,6 +190,10 @@
           "RATE_LIMITED": "Too many requests, try again in a minute",
           "FORBIDDEN": "Forbidden request",
           "INTERNAL": "Internal error"
+        },
+        "status": {
+          "draft": "Draft",
+          "published": "Published"
         }
       }
     }

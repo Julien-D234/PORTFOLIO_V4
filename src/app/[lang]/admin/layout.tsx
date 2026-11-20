@@ -28,6 +28,7 @@ export default async function AdminLayout({
       <nav className="flex flex-wrap gap-2">
         {link(`/${lang}/admin`, nav.dashboard)}
         {link(`/${lang}/admin/users`, nav.users)}
+        {link(`/${lang}/admin/projects`, nav.projects)}
         {link(`/${lang}/admin/audit`, nav.audit)}
       </nav>
       {children}

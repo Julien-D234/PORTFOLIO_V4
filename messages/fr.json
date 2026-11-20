@@ -190,6 +190,10 @@
           "RATE_LIMITED": "Trop de requêtes, réessayez dans une minute",
           "FORBIDDEN": "Requête interdite",
           "INTERNAL": "Erreur interne"
+        },
+        "status": {
+          "draft": "Brouillon",
+          "published": "Publié"
         }
       }
     }
