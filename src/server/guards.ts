@@ -24,12 +24,12 @@ export async function getSessionUser() {
   return session?.user ?? null;
 }
 
-export async function requireUser() {
+export async function requireUser(opts: { allowMustChangePassword?: boolean } = {}) {
   const h = await headers();
   const lang = langOf(h);
   const user = await getSessionUser();
   if (!user) redirect(`/${lang}/login`);
-  const decision = authorize(user, {});
+  const decision = authorize(user, { allowMustChangePassword: opts.allowMustChangePassword });
   if (!decision.ok && decision.reason === "banned") redirect(`/${lang}/login`);
   if (!decision.ok && decision.reason === "must_change_password") redirect(`/${lang}/change-password`);
   return user;

@@ -8,5 +8,41 @@
     "system": "System",
     "light": "Light",
     "dark": "Dark"
+  },
+  "auth": {
+    "login": {
+      "title": "Sign in",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "submitting": "Signing in…",
+      "errors": {
+        "invalidCredentials": "Wrong email or password.",
+        "rateLimited": "Too many attempts. Try again in a minute.",
+        "unavailable": "This account is unavailable.",
+        "network": "Network error. Please retry.",
+        "validation": "Invalid email."
+      }
+    },
+    "changePassword": {
+      "title": "Change password",
+      "current": "Current password",
+      "new": "New password",
+      "confirm": "Confirm new password",
+      "submit": "Save",
+      "submitting": "Saving…",
+      "success": "Password changed.",
+      "errors": {
+        "mismatch": "Passwords do not match.",
+        "same": "The new password must differ from the current one.",
+        "invalidCurrent": "Current password is incorrect.",
+        "policy": "Password must be 12 to 128 characters long.",
+        "rateLimited": "Too many attempts. Try again in a minute.",
+        "network": "Network error. Please retry."
+      }
+    },
+    "signOut": {
+      "label": "Sign out"
+    }
   }
 }

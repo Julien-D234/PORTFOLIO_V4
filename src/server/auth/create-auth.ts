@@ -124,6 +124,21 @@ export function createAuth(db: AuthDb, opts: CreateAuthOptions = {}) {
       ],
       after: [
         {
+          matcher: (ctx) => ctx.path === "/change-password",
+          handler: async (ctx) => {
+            const c = asHook(ctx);
+            if (c.context.returned instanceof APIError) return {};
+            const session = c.headers && ref.auth ? await ref.auth.api.getSession({ headers: c.headers }) : null;
+            if (session?.user) {
+              await db
+                .update(schema.user)
+                .set({ mustChangePassword: false, updatedAt: new Date() })
+                .where(eq(schema.user.id, session.user.id));
+            }
+            return {};
+          },
+        },
+        {
           matcher: (ctx) => ctx.path === "/sign-in/email",
           handler: async (ctx) => {
             const c = asHook(ctx);
