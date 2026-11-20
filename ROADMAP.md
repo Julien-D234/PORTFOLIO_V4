@@ -1,6 +1,6 @@
 # ROADMAP — PORTFOLIO_V4
 
-Dernière mise à jour : étape 1 (socle) en cours. Tâche en cours et avancement détaillé : `roadmap_current.md`.
+Dernière mise à jour : étape 5 (projets + médias) en cours. Tâche en cours et avancement détaillé : `roadmap_current.md`.
 
 ## Vue d'ensemble
 
@@ -8,9 +8,9 @@ Dernière mise à jour : étape 1 (socle) en cours. Tâche en cours et avancemen
 |---|---|---|---|
 | 1 | Socle technique (Next.js, i18n, CSP, thème V2, ports/adapters, CI, Docker) | ✅ fait (mergé via PR #10) | 100 % |
 | 2 | Authentification + rôles user/admin + garde-fous | ✅ fait (mergé via PR #11) | 100 % |
-| 3 | Pages connexion / changement de mot de passe / déconnexion | 🟡 en cours | voir `roadmap_current.md` |
-| 4 | Administration des comptes (liste, détail, actions, invitations, audit) | ⬜ à faire | — |
-| 5 | Projets (public immersif + détail + admin + upload médias) + charte V2 appliquée | ⬜ à faire | — |
+| 3 | Pages connexion / changement de mot de passe / déconnexion | ✅ fait (mergé via PR #12) | 100 % |
+| 4 | Administration des comptes (liste, détail, actions, invitations, audit, page welcome) | ✅ fait (mergé via PR #13) | 100 % |
+| 5 | Projets (public immersif + détail + admin + upload médias) + charte V2 appliquée | 🟡 en cours | voir `roadmap_current.md` |
 | 6 | Mini-jeux (page de sélection + API de remontée de stats) | ⬜ à faire | — |
 | 7 | Profil utilisateur (stats par jeu, mot de passe, langue) | ⬜ à faire | — |
 | 8 | Production : VPS Debian 12 (provisionnement, durcissement, déploiement, tâches serveur) | ⬜ à faire | VPS à provisionner |
