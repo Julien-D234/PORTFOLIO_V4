@@ -1,6 +1,6 @@
 # ROADMAP — PORTFOLIO_V4
 
-Dernière mise à jour : étape 7 (mini-jeux) en cours — étapes 5+6 mergées via PR #14/#15. Tâche en cours et avancement détaillé : `roadmap_current.md`.
+Dernière mise à jour : étape 8 (prod VPS existant) en cours — étapes 5+6+7 mergées via PR #14/#15/#16. Tâche en cours et avancement détaillé : `roadmap_current.md`.
 
 ## Vue d'ensemble
 
@@ -13,7 +13,7 @@ Dernière mise à jour : étape 7 (mini-jeux) en cours — étapes 5+6 mergées 
 | 5 | Projets (public immersif + détail + admin + upload médias) + charte V2 appliquée | 🟡 en cours | voir `roadmap_current.md` |
 | 6 | Profil utilisateur (mot de passe, langue ; stats par jeu rattachées plus tard à l'étape 7) | 🟡 en cours | voir `roadmap_current.md` |
 | 7 | Mini-jeux (sélection + API de remontée de stats) — **jeux ajoutés au fil du temps** via la table `game` (alimentée dynamiquement, aucun jeu en dur dans le code) | 🟡 en cours | voir `roadmap_current.md` |
-| 8 | Production : VPS Debian 12 (provisionnement, durcissement, déploiement, tâches serveur) | ⬜ à faire | VPS à provisionner |
+| 8 | Production : VPS Debian 12 **existant** — déploiement à partir de l'installation Docker (points 6-8 de DEPLOIEMENT.md) | 🟡 en cours | voir `roadmap_current.md` |
 
 ## Tâches transverses / différées
 
