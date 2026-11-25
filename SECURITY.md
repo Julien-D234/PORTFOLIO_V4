@@ -25,6 +25,14 @@ Projet personnel de Julien (GitHub `Julien-D234`). Pour signaler un problème de
 - **Conteneurs** : app non-root, FS read-only, `cap_drop: ALL`, `no-new-privileges`, Postgres non exposé,
   `npm audit --omit=dev --audit-level=high` en CI.
 - **Secrets** : jamais dans git ni dans les logs ; `.env` généré sur place (`openssl`), `.env` dans `.gitignore`.
+- **API v1 jeux** (`/api/v1/games/{slug}/*`, 100 % POST) : `start` exige la clé API du jeu (`x-api-key`, seul le hash
+  SHA-256 est stocké, comparaison en temps constant) ; `stats`/`refresh` exigent un ticket JWT HS256 de 10 min
+  (signé avec un secret dérivé de `BETTER_AUTH_SECRET`, `node:crypto`, vérifié en `timingSafeEqual`, alg imposé) lié à une
+  session ouverte (`game_session.expiresAt`) ; le ticket ne sert qu'aux stats, jamais à ouvrir une page. Plafonds de
+  vraisemblance appliqués serveur (score/durée/taille du payload selon `game.limits`), rate-limit par joueur+jeu,
+  CORS limité à l'origine https du jeu (Bearer, sans cookies), test structurel : auth avant tout accès BDD sur `api/v1/**`.
+  Le ticket est transmis au jeu par `postMessage` (jamais dans l'URL) ; les iframes de jeux sont en
+  `sandbox="allow-scripts"` et la CSP autorise `frame-src https:`.
 
 ## Dette connue
 

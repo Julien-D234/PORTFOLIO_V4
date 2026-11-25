@@ -47,8 +47,8 @@ export const gameInputSchema = z
     kind: z.enum(GAME_KINDS),
     url: httpsUrl.nullish(),
     module: z.string().trim().max(80).regex(/^[a-z0-9-]+$/, "MODULE_INVALID").nullish(),
-    title: localeText(120),
-    summary: localeText(300),
+    title: localeText(120).default({}),
+    summary: localeText(300).default({}),
     position: z.number().int().min(0).max(9999).default(0),
     limits: gameLimitsSchema.default({}),
   })

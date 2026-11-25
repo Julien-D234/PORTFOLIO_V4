@@ -71,7 +71,7 @@ export async function getUserGameStats(db: GamesDb, userId: string, locale: Loca
       gameId: gameStat.gameId,
       bestScore: sql<number>`max(${gameStat.score})`,
       stats: sql<number>`count(*)`,
-      lastPlayedAt: sql<Date | null>`max(${gameStat.createdAt})`,
+      lastPlayedAt: sql<string | null>`max(${gameStat.createdAt})`,
     })
     .from(gameStat)
     .where(eq(gameStat.userId, userId))
@@ -95,7 +95,7 @@ export async function getUserGameStats(db: GamesDb, userId: string, locale: Loca
         title: pickLocaleText(g.title, locale) ?? g.slug,
         bestScore: Number(r.bestScore ?? 0),
         sessions: sessionCount.get(r.gameId) ?? 0,
-        lastPlayedAt: r.lastPlayedAt,
+        lastPlayedAt: r.lastPlayedAt ? new Date(r.lastPlayedAt) : null,
       };
     })
     .filter((r): r is UserGameStats => r !== null)
