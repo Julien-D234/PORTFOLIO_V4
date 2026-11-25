@@ -1,8 +1,10 @@
 import { statsSchema } from "@/lib/game-schema";
 import { getDb } from "@/server/db";
 import { clientIp, errorResponse, HttpError, json, readJson } from "@/server/http";
+import { corsHeaders, gameOrigin } from "@/server/games/cors";
 import { gameLimitsOf, recordStat } from "@/server/games/mutations";
 import { verifyGameToken } from "@/server/games/jwt";
+import { getGameBySlug } from "@/server/games/queries";
 import { allowRequest } from "@/server/rate-limit";
 
 function bearer(request: Request): string | null {
@@ -27,8 +29,16 @@ export async function POST(request: Request, { params }: { params: Promise<{ slu
     const parsed = statsSchema.safeParse(await readJson(request, limits.maxPayloadBytes + 4096));
     if (!parsed.success) throw new HttpError(400, "INVALID_INPUT");
     const result = await recordStat(db, token, parsed.data, clientIp(request));
-    return json(result, 201);
+    const origin = gameOrigin(game.url);
+    return json(result, 201, origin ? corsHeaders(origin) : {});
   } catch (e) {
     return errorResponse(e);
   }
+}
+
+export async function OPTIONS(request: Request, { params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const game = await getGameBySlug(getDb(), slug);
+  const origin = game?.status === "published" ? gameOrigin(game.url) : null;
+  return new Response(null, { status: 204, headers: origin ? corsHeaders(origin) : {} });
 }

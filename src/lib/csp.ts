@@ -8,6 +8,7 @@ export function buildCsp(nonce: string, dev: boolean): string {
     `script-src ${scriptSrc}`,
     `style-src ${styleSrc}`,
     "img-src 'self' blob: data:",
+    "frame-src https:",
     "font-src 'self'",
     "connect-src 'self'",
     "object-src 'none'",

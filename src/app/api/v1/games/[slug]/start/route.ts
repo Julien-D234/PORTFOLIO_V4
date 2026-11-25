@@ -1,7 +1,9 @@
 import { startSchema } from "@/lib/game-schema";
 import { getDb } from "@/server/db";
 import { clientIp, errorResponse, HttpError, json, readJson } from "@/server/http";
+import { corsHeaders, gameOrigin } from "@/server/games/cors";
 import { verifyApiKeyForSlug, startSession } from "@/server/games/mutations";
+import { getGameBySlug } from "@/server/games/queries";
 import { allowRequest } from "@/server/rate-limit";
 
 export async function POST(request: Request, { params }: { params: Promise<{ slug: string }> }) {
@@ -17,8 +19,20 @@ export async function POST(request: Request, { params }: { params: Promise<{ slu
     const parsed = startSchema.safeParse(await readJson(request));
     if (!parsed.success) throw new HttpError(400, "INVALID_INPUT");
     const started = await startSession(getDb(), game.id, parsed.data.userId);
-    return json({ token: started.token, sessionId: started.sessionId, expiresAt: started.expiresAt }, 201);
+    const origin = gameOrigin(game.url);
+    return json(
+      { token: started.token, sessionId: started.sessionId, expiresAt: started.expiresAt },
+      201,
+      origin ? corsHeaders(origin) : {},
+    );
   } catch (e) {
     return errorResponse(e);
   }
+}
+
+export async function OPTIONS(request: Request, { params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const game = await getGameBySlug(getDb(), slug);
+  const origin = game?.status === "published" ? gameOrigin(game.url) : null;
+  return new Response(null, { status: 204, headers: origin ? corsHeaders(origin) : {} });
 }

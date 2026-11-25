@@ -1,7 +1,9 @@
 import { getDb } from "@/server/db";
 import { errorResponse, HttpError, json } from "@/server/http";
+import { corsHeaders, gameOrigin } from "@/server/games/cors";
 import { verifyGameToken } from "@/server/games/jwt";
 import { refreshSession } from "@/server/games/mutations";
+import { getGameBySlug } from "@/server/games/queries";
 import { allowRequest } from "@/server/rate-limit";
 
 function bearer(request: Request): string | null {
@@ -24,8 +26,16 @@ export async function POST(request: Request, { params }: { params: Promise<{ slu
     if (!game || game.id !== claims.game || game.status !== "published") throw new HttpError(404, "GAME_NOT_FOUND");
     const refreshed = await refreshSession(db, token);
     if (!refreshed) throw new HttpError(410, "SESSION_CLOSED");
-    return json({ token: refreshed.token });
+    const origin = gameOrigin(game.url);
+    return json({ token: refreshed.token }, 200, origin ? corsHeaders(origin) : {});
   } catch (e) {
     return errorResponse(e);
   }
+}
+
+export async function OPTIONS(request: Request, { params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const game = await getGameBySlug(getDb(), slug);
+  const origin = game?.status === "published" ? gameOrigin(game.url) : null;
+  return new Response(null, { status: 204, headers: origin ? corsHeaders(origin) : {} });
 }
