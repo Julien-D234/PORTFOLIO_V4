@@ -30,6 +30,7 @@ export default async function AdminLayout({
         {link(`/${lang}/admin/users`, nav.users)}
         {link(`/${lang}/admin/projects`, nav.projects)}
         {link(`/${lang}/admin/audit`, nav.audit)}
+        {link(`/${lang}/profile`, nav.profile)}
       </nav>
       {children}
     </main>

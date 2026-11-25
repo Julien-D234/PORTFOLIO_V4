@@ -7,7 +7,15 @@ import { PASSWORD_MAX, PASSWORD_MIN } from "@/lib/password-policy";
 
 type Labels = Messages["auth"]["changePassword"];
 
-export function ChangePasswordForm({ labels, lang }: { labels: Labels; lang: string }) {
+export function ChangePasswordForm({
+  labels,
+  lang,
+  redirectTo,
+}: {
+  labels: Labels;
+  lang: string;
+  redirectTo?: string;
+}) {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -42,7 +50,7 @@ export function ChangePasswordForm({ labels, lang }: { labels: Labels; lang: str
       });
       if (res.ok) {
         setSuccess(true);
-        router.push(`/${lang}`);
+        router.push(redirectTo ?? `/${lang}`);
         return;
       }
       const body = (await res.json().catch(() => null)) as { code?: string } | null;

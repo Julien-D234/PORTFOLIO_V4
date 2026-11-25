@@ -1,6 +1,6 @@
 # Tâche en cours — Étape 6 : profil utilisateur
 
-État : 🟡 en cours · Branche : `vibe/etape-6-profil` · Base : `main` (`9955bb0`, étape 5 mergée via PR #14)
+État : ✅ livrée (en attente de merge) · 🟡 · Branche : `vibe/etape-6-profil` · Base : `main` (`9955bb0`, étape 5 mergée via PR #14)
 
 ## Objectif de l'étape 6 (plan validé par Julien)
 
@@ -12,15 +12,15 @@ existant réutilisé), et une section **stats par jeu** en placeholder (branché
 ## Checklist
 
 - [x] i18n `profile.*` fr/en + `admin.nav.profile` (parité testée)
-- [ ] `src/lib/profile-schema.ts` (Zod `{locale: fr|en}`) + test
-- [ ] `src/server/profile/queries.ts` : `setUserLocale(db, userId, locale)` (update + audit `profile.locale_changed`) + test PGlite
-- [ ] Route `POST /api/profile/locale` : `requireApi()` + `isSameOrigin` + rate-limit 10/min + Zod → 200 + `Set-Cookie NEXT_LOCALE` (Path=/, Max-Age 1 an, SameSite=Lax) + test structurel (api/profile → requireApi + isSameOrigin, POST only)
-- [ ] `src/components/profile/language-form.tsx` (boutons FR/EN → POST → redirect `/{lang}/profile` ou refresh)
-- [ ] Page `src/app/[lang]/profile/page.tsx` (requireUser, infos, langue, `ChangePasswordForm` avec `redirectTo`, stats placeholder) + `generateMetadata`
-- [ ] `ChangePasswordForm` : prop optionnel `redirectTo` (rétrocompatible)
-- [ ] Lien « Profil » dans la nav admin + `ARBORESCENCE.md`
-- [ ] `npm run check` + `build` + smoke one-shot par bloc (anon → 307 ; user → 200 ; POST sans Origin → 403 ; locale invalide → 400 ; `en` → 200 + cookie + DB ; 11e POST → 429)
-- [ ] Commits → push → PR draft → CI verte → merge sur « go merge »
+- [x] `src/lib/profile-schema.ts` (Zod `{locale: fr|en}`) + test
+- [x] `src/server/profile/queries.ts` : `setUserLocale` (update + audit `profile.locale_changed`) + test PGlite
+- [x] Route `POST /api/profile/locale` : `requireApi()` + `isSameOrigin` + rate-limit 10/min + Zod → 200 + `Set-Cookie NEXT_LOCALE` + test structurel (api/profile → requireApi + isSameOrigin, POST only)
+- [x] `src/components/profile/language-form.tsx` (boutons FR/EN → POST → redirect `/{lang}/profile` ou refresh)
+- [x] Page `src/app/[lang]/profile/page.tsx` (requireUser, infos, langue, `ChangePasswordForm` avec `redirectTo`, stats placeholder) + `generateMetadata`
+- [x] `ChangePasswordForm` : prop optionnel `redirectTo` (rétrocompatible)
+- [x] Lien « Profil » dans la nav admin + `ARBORESCENCE.md`
+- [x] `npm run check` (**59 tests**) + `build` + smoke one-shot **10/10 OK** (anon → 307/401 ; user → 200 ; POST sans Origin → 403 ; `de` → 400 ; `en` → 200 + cookie NEXT_LOCALE ; `/en/profile` → 200 ; 11e POST → 429)
+- [x] Commits → push → PR draft → CI verte → merge sur « go merge »
 
 ## Blocages / erreurs signalées (corrigées)
 
