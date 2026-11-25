@@ -51,7 +51,8 @@
       "users": "Users",
       "audit": "Audit",
       "projects": "Projects",
-      "profile": "Profile"
+      "profile": "Profile",
+      "games": "Games"
     },
     "dashboard": {
       "title": "Administration",
@@ -197,6 +198,71 @@
           "published": "Published"
         }
       }
+    },
+    "games": {
+      "list": {
+        "title": "Games",
+        "new": "New game",
+        "empty": "No games yet.",
+        "slug": "Slug",
+        "kind": "Kind",
+        "status": "Status",
+        "position": "Position",
+        "updated": "Updated",
+        "edit": "Edit",
+        "draft": "Draft",
+        "published": "Published",
+        "iframe": "External (iframe)",
+        "internal": "Internal (module)"
+      },
+      "editor": {
+        "titleNew": "New game",
+        "titleEdit": "Edit game",
+        "back": "Back to list",
+        "fields": {
+          "slug": "Slug",
+          "kind": "Game kind",
+          "url": "Game URL (https, iframe)",
+          "module": "Internal module (e.g. snake)",
+          "titleFr": "Title FR",
+          "titleEn": "Title EN",
+          "summaryFr": "Summary FR",
+          "summaryEn": "Summary EN",
+          "position": "Position",
+          "maxScore": "Max score (ceiling)",
+          "maxSessionSec": "Max session duration (s)",
+          "maxPayloadBytes": "Max details size (bytes)",
+          "maxStatsPerMin": "Max stats / min / player"
+        },
+        "apikey": {
+          "title": "Game API key",
+          "hint": "This key lets the game start sessions (v1 API). Shown only once.",
+          "regenerate": "Regenerate key",
+          "regenerated": "New key (copy it now):",
+          "copy": "Copy"
+        },
+        "actions": {
+          "save": "Save",
+          "saving": "Saving…",
+          "saved": "Saved",
+          "publish": "Publish",
+          "unpublish": "Unpublish",
+          "delete": "Delete…",
+          "unsaved": "Unsaved changes",
+          "deleteConfirm": "Type the game slug to confirm",
+          "deleteCancel": "Cancel",
+          "deleteConfirmAction": "Delete permanently"
+        },
+        "errors": {
+          "INVALID_INPUT": "Invalid input",
+          "SLUG_TAKEN": "Slug already taken",
+          "GAME_NOT_FOUND": "Game not found",
+          "SLUG_MISMATCH": "Slug does not match",
+          "RATE_LIMITED": "Too many requests",
+          "FORBIDDEN": "Forbidden",
+          "INTERNAL": "Internal error"
+        }
+      }
     }
   },
   "welcome": {
@@ -250,7 +316,12 @@
     },
     "stats": {
       "title": "Game statistics",
-      "empty": "No statistics yet — mini-games are coming in step 7."
+      "empty": "No statistics yet — play a mini-game!",
+      "game": "Game",
+      "best": "Best score",
+      "sessions": "Sessions",
+      "last": "Last played",
+      "score": "Score"
     },
     "errors": {
       "INVALID_LOCALE": "Unknown language",
@@ -261,5 +332,15 @@
       "MUST_CHANGE_PASSWORD": "Change your password first",
       "INTERNAL": "Internal error"
     }
+  },
+  "games": {
+    "title": "Mini-games",
+    "subtitle": "A few games playable in the browser.",
+    "empty": "No published games yet.",
+    "play": "Play",
+    "back": "Back to games",
+    "loading": "Loading game…",
+    "moduleMissing": "This game is not available.",
+    "hint": "The game receives a temporary ticket to submit its scores."
   }
 }

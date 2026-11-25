@@ -14,9 +14,9 @@ choisie (cookie `NEXT_LOCALE` > `Accept-Language` > `fr`). Statut : ✅ livrée 
 | `/{lang}/welcome#token=…` | Activation par invitation à usage unique (fragment jamais envoyé au serveur, `no-referrer` + `no-store`) | ✅ |
 | `/{lang}/projects` | Deck immersif : un projet publié par écran 100 dvh | 🟡 étape 5 (maquette DA validée) |
 | `/{lang}/projects/[slug]` | Page détail d'un projet publié (brouillon/inconnu → 404) | 🟡 étape 5 |
-| `/{lang}/games` | Sélection des mini-jeux publiés (depuis la table `game`) | ⬜ étape 7 |
-| `/{lang}/games/[slug]` | Lancement d'un jeu (connexion requise, session + JWT 10 min) | ⬜ étape 7 |
-| `/{lang}/profile` | Profil : infos compte, mot de passe, langue, + stats par jeu (branchement étape 7) | 🟡 étape 6 |
+| `/{lang}/games` | Sélection des mini-jeux publiés (depuis la table `game`) | 🟡 étape 7 |
+| `/{lang}/games/[slug]` | Lancement d'un jeu (connexion requise, session + ticket 10 min renouvelable, postMessage) | 🟡 étape 7 |
+| `/{lang}/profile` | Profil : infos, mot de passe, langue, **stats par jeu** (étape 7) | ✅ étape 6 + 🟡 étape 7 |
 
 ## Espace admin (`requireAdmin` — non-admin → 404 sur les pages, 403 sur les API)
 
@@ -26,7 +26,7 @@ choisie (cookie `NEXT_LOCALE` > `Accept-Language` > `fr`). Statut : ✅ livrée 
 | `/{lang}/admin/users` · `/new` · `/[id]` | Comptes, invitations, actions, unlock | ✅ |
 | `/{lang}/admin/audit` | Journal d'audit filtrable | ✅ |
 | `/{lang}/admin/projects` · `/new` · `/[id]` | CRUD projets + médias + publish | ✅ code, 🟡 pages publiques en attente |
-| `/{lang}/admin/games` · `/new` · `/[id]` | CRUD jeux (ajoutés au fil du temps) + clé API + limites | ⬜ étape 7 |
+| `/{lang}/admin/games` · `/new` · `/[id]` | CRUD jeux (ajoutés au fil du temps) + clé API (affichée une fois) + limites | 🟡 étape 7 |
 
 ## API
 
@@ -36,8 +36,8 @@ choisie (cookie `NEXT_LOCALE` > `Accept-Language` > `fr`). Statut : ✅ livrée 
 | `/api/welcome` | POST public : activation invitation (rate-limit 10/min/IP) | ✅ |
 | `/api/health` | Healthcheck (Docker/Caddy/cron) | ✅ |
 | `/api/admin/*` | 100 % POST, `requireApi("admin")` + `isSameOrigin` + rate-limit : users, invitations, projets, médias | ✅ |
-| `/api/v1/games/{slug}/start` | Démarre une session jeu (clé API du jeu, hash SHA-256) → JWT 10 min | ⬜ étape 7 |
-| `/api/v1/games/{slug}/stats` | Remontée de stats (Bearer JWT, plafonds de vraisemblance, rate-limit) | ⬜ étape 7 |
+| `/api/v1/games/{slug}/start` | Démarre une session (clé API du jeu `x-api-key`, hash SHA-256) → ticket 10 min | 🟡 étape 7 |
+| `/api/v1/games/{slug}/stats` + `/refresh` | Stats (Bearer ticket) + renouvellement du ticket tant que la session est ouverte | 🟡 étape 7 |
 | `/media/[id]?v=thumb` | Service des médias WebP (public si projet publié, admin sinon, 404 indiscernable sinon) | ✅ |
 
 ## Fichiers statiques

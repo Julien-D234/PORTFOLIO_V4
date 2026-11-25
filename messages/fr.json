@@ -51,7 +51,8 @@
       "users": "Utilisateurs",
       "audit": "Audit",
       "projects": "Projets",
-      "profile": "Profil"
+      "profile": "Profil",
+      "games": "Jeux"
     },
     "dashboard": {
       "title": "Administration",
@@ -197,6 +198,71 @@
           "published": "Publié"
         }
       }
+    },
+    "games": {
+      "list": {
+        "title": "Jeux",
+        "new": "Nouveau jeu",
+        "empty": "Aucun jeu pour le moment.",
+        "slug": "Slug",
+        "kind": "Type",
+        "status": "Statut",
+        "position": "Position",
+        "updated": "Modifié le",
+        "edit": "Modifier",
+        "draft": "Brouillon",
+        "published": "Publié",
+        "iframe": "Externe (iframe)",
+        "internal": "Interne (module)"
+      },
+      "editor": {
+        "titleNew": "Nouveau jeu",
+        "titleEdit": "Modifier le jeu",
+        "back": "Retour à la liste",
+        "fields": {
+          "slug": "Slug",
+          "kind": "Type de jeu",
+          "url": "URL du jeu (https, iframe)",
+          "module": "Module interne (ex. snake)",
+          "titleFr": "Titre FR",
+          "titleEn": "Titre EN",
+          "summaryFr": "Résumé FR",
+          "summaryEn": "Résumé EN",
+          "position": "Position",
+          "maxScore": "Score max (plafond)",
+          "maxSessionSec": "Durée max d'une partie (s)",
+          "maxPayloadBytes": "Taille max des détails (octets)",
+          "maxStatsPerMin": "Stats max / min / joueur"
+        },
+        "apikey": {
+          "title": "Clé API du jeu",
+          "hint": "Cette clé permet au jeu de démarrer des parties (API v1). Elle n'est affichée qu'une seule fois.",
+          "regenerate": "Régénérer la clé",
+          "regenerated": "Nouvelle clé (à copier maintenant) :",
+          "copy": "Copier"
+        },
+        "actions": {
+          "save": "Enregistrer",
+          "saving": "Enregistrement…",
+          "saved": "Enregistré",
+          "publish": "Publier",
+          "unpublish": "Dépublier",
+          "delete": "Supprimer…",
+          "unsaved": "Modifications non enregistrées",
+          "deleteConfirm": "Retapez le slug du jeu pour confirmer",
+          "deleteCancel": "Annuler",
+          "deleteConfirmAction": "Supprimer définitivement"
+        },
+        "errors": {
+          "INVALID_INPUT": "Données invalides",
+          "SLUG_TAKEN": "Ce slug est déjà utilisé",
+          "GAME_NOT_FOUND": "Jeu introuvable",
+          "SLUG_MISMATCH": "Le slug ne correspond pas",
+          "RATE_LIMITED": "Trop de requêtes",
+          "FORBIDDEN": "Interdit",
+          "INTERNAL": "Erreur interne"
+        }
+      }
     }
   },
   "welcome": {
@@ -250,7 +316,12 @@
     },
     "stats": {
       "title": "Statistiques des jeux",
-      "empty": "Aucune statistique pour l'instant — les mini-jeux arrivent à l'étape 7."
+      "empty": "Aucune statistique pour l'instant — joue à un mini-jeu !",
+      "game": "Jeu",
+      "best": "Meilleur score",
+      "sessions": "Parties",
+      "last": "Dernière partie",
+      "score": "Score"
     },
     "errors": {
       "INVALID_LOCALE": "Langue inconnue",
@@ -261,5 +332,15 @@
       "MUST_CHANGE_PASSWORD": "Change d'abord ton mot de passe",
       "INTERNAL": "Erreur interne"
     }
+  },
+  "games": {
+    "title": "Mini-jeux",
+    "subtitle": "Quelques jeux jouables dans le navigateur.",
+    "empty": "Aucun jeu publié pour le moment.",
+    "play": "Jouer",
+    "back": "Retour aux jeux",
+    "loading": "Chargement du jeu…",
+    "moduleMissing": "Ce jeu n'est pas disponible.",
+    "hint": "Le jeu reçoit un ticket temporaire pour envoyer ses scores."
   }
 }

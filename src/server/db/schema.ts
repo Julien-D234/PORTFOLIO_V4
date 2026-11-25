@@ -2,6 +2,7 @@ import { sql } from "drizzle-orm";
 import {
   bigint,
   boolean,
+  doublePrecision,
   index,
   integer,
   jsonb,
@@ -227,6 +228,79 @@ export const projectTag = pgTable(
       .references(() => tag.id, { onDelete: "cascade" }),
   },
   (t) => [primaryKey({ columns: [t.projectId, t.tagId] }), index("project_tag_tag_idx").on(t.tagId)],
+);
+
+export interface GameLimits {
+  maxScore?: number;
+  maxSessionSec?: number;
+  maxPayloadBytes?: number;
+  maxStatsPerMin?: number;
+}
+
+export const game = pgTable(
+  "game",
+  {
+    id: text("id").primaryKey(),
+    slug: text("slug").notNull(),
+    kind: text("kind").notNull().default("iframe"),
+    url: text("url"),
+    module: text("module"),
+    title: jsonb("title").$type<LocaleText>().notNull().default({}),
+    summary: jsonb("summary").$type<LocaleText>().notNull().default({}),
+    status: text("status").notNull().default("draft"),
+    position: integer("position").notNull().default(0),
+    apiKeyHash: text("api_key_hash").notNull(),
+    limits: jsonb("limits").$type<GameLimits>().notNull().default({}),
+    createdAt: timestamp("created_at", { withTimezone: true, mode: "date" }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true, mode: "date" }).notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("game_slug_unique").on(t.slug),
+    index("game_status_position_idx").on(t.status, t.position),
+  ],
+);
+
+export const gameSession = pgTable(
+  "game_session",
+  {
+    id: text("id").primaryKey(),
+    gameId: text("game_id")
+      .notNull()
+      .references(() => game.id, { onDelete: "cascade" }),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    startedAt: timestamp("started_at", { withTimezone: true, mode: "date" }).notNull().defaultNow(),
+    expiresAt: timestamp("expires_at", { withTimezone: true, mode: "date" }).notNull(),
+    endedAt: timestamp("ended_at", { withTimezone: true, mode: "date" }),
+    createdAt: timestamp("created_at", { withTimezone: true, mode: "date" }).notNull().defaultNow(),
+  },
+  (t) => [index("game_session_game_idx").on(t.gameId), index("game_session_user_idx").on(t.userId)],
+);
+
+export const gameStat = pgTable(
+  "game_stat",
+  {
+    id: text("id").primaryKey(),
+    sessionId: text("session_id")
+      .notNull()
+      .references(() => gameSession.id, { onDelete: "cascade" }),
+    gameId: text("game_id")
+      .notNull()
+      .references(() => game.id, { onDelete: "cascade" }),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    score: doublePrecision("score").notNull().default(0),
+    durationSec: integer("duration_sec"),
+    payload: jsonb("payload").notNull().default({}),
+    ip: text("ip"),
+    createdAt: timestamp("created_at", { withTimezone: true, mode: "date" }).notNull().defaultNow(),
+  },
+  (t) => [
+    index("game_stat_game_user_idx").on(t.gameId, t.userId),
+    index("game_stat_session_idx").on(t.sessionId),
+  ],
 );
 
 export type User = typeof user.$inferSelect;
