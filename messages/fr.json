@@ -50,7 +50,8 @@
       "dashboard": "Tableau de bord",
       "users": "Utilisateurs",
       "audit": "Audit",
-      "projects": "Projets"
+      "projects": "Projets",
+      "profile": "Profil"
     },
     "dashboard": {
       "title": "Administration",
@@ -226,6 +227,39 @@
     "nav": {
       "prev": "Projet précédent",
       "next": "Projet suivant"
+    }
+  },
+  "profile": {
+    "title": "Mon profil",
+    "account": {
+      "title": "Compte",
+      "name": "Nom",
+      "email": "E-mail",
+      "role": "Rôle",
+      "created": "Créé le"
+    },
+    "language": {
+      "title": "Langue",
+      "current": "Langue actuelle",
+      "hint": "Change la langue du site (enregistrée sur ton compte et dans un cookie).",
+      "fr": "Français",
+      "en": "English"
+    },
+    "password": {
+      "title": "Mot de passe"
+    },
+    "stats": {
+      "title": "Statistiques des jeux",
+      "empty": "Aucune statistique pour l'instant — les mini-jeux arrivent à l'étape 7."
+    },
+    "errors": {
+      "INVALID_LOCALE": "Langue inconnue",
+      "INVALID_JSON": "Requête invalide",
+      "RATE_LIMITED": "Trop de requêtes, réessaie dans une minute",
+      "FORBIDDEN": "Requête interdite",
+      "UNAUTHORIZED": "Non connecté",
+      "MUST_CHANGE_PASSWORD": "Change d'abord ton mot de passe",
+      "INTERNAL": "Erreur interne"
     }
   }
 }

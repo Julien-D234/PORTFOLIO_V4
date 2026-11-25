@@ -16,7 +16,7 @@ choisie (cookie `NEXT_LOCALE` > `Accept-Language` > `fr`). Statut : ✅ livrée 
 | `/{lang}/projects/[slug]` | Page détail d'un projet publié (brouillon/inconnu → 404) | 🟡 étape 5 |
 | `/{lang}/games` | Sélection des mini-jeux publiés (depuis la table `game`) | ⬜ étape 7 |
 | `/{lang}/games/[slug]` | Lancement d'un jeu (connexion requise, session + JWT 10 min) | ⬜ étape 7 |
-| `/{lang}/profile` | Profil : mot de passe, langue préférée, + stats par jeu (branchement étape 7) | ⬜ étape 6 |
+| `/{lang}/profile` | Profil : infos compte, mot de passe, langue, + stats par jeu (branchement étape 7) | 🟡 étape 6 |
 
 ## Espace admin (`requireAdmin` — non-admin → 404 sur les pages, 403 sur les API)
 

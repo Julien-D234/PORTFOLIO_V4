@@ -50,7 +50,8 @@
       "dashboard": "Dashboard",
       "users": "Users",
       "audit": "Audit",
-      "projects": "Projects"
+      "projects": "Projects",
+      "profile": "Profile"
     },
     "dashboard": {
       "title": "Administration",
@@ -226,6 +227,39 @@
     "nav": {
       "prev": "Previous project",
       "next": "Next project"
+    }
+  },
+  "profile": {
+    "title": "My profile",
+    "account": {
+      "title": "Account",
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "created": "Created on"
+    },
+    "language": {
+      "title": "Language",
+      "current": "Current language",
+      "hint": "Changes the site language (saved on your account and in a cookie).",
+      "fr": "Français",
+      "en": "English"
+    },
+    "password": {
+      "title": "Password"
+    },
+    "stats": {
+      "title": "Game statistics",
+      "empty": "No statistics yet — mini-games are coming in step 7."
+    },
+    "errors": {
+      "INVALID_LOCALE": "Unknown language",
+      "INVALID_JSON": "Invalid request",
+      "RATE_LIMITED": "Too many requests, try again in a minute",
+      "FORBIDDEN": "Forbidden request",
+      "UNAUTHORIZED": "Not signed in",
+      "MUST_CHANGE_PASSWORD": "Change your password first",
+      "INTERNAL": "Internal error"
     }
   }
 }

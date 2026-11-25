@@ -1,6 +1,6 @@
 # ROADMAP — PORTFOLIO_V4
 
-Dernière mise à jour : étape 5 (projets + médias) en cours. Tâche en cours et avancement détaillé : `roadmap_current.md`.
+Dernière mise à jour : étape 6 (profil) en cours — étape 5 mergée via PR #14. Tâche en cours et avancement détaillé : `roadmap_current.md`.
 
 ## Vue d'ensemble
 
@@ -11,7 +11,7 @@ Dernière mise à jour : étape 5 (projets + médias) en cours. Tâche en cours 
 | 3 | Pages connexion / changement de mot de passe / déconnexion | ✅ fait (mergé via PR #12) | 100 % |
 | 4 | Administration des comptes (liste, détail, actions, invitations, audit, page welcome) | ✅ fait (mergé via PR #13) | 100 % |
 | 5 | Projets (public immersif + détail + admin + upload médias) + charte V2 appliquée | 🟡 en cours | voir `roadmap_current.md` |
-| 6 | Profil utilisateur (mot de passe, langue ; stats par jeu rattachées plus tard à l'étape 7) | ⬜ à faire | — |
+| 6 | Profil utilisateur (mot de passe, langue ; stats par jeu rattachées plus tard à l'étape 7) | 🟡 en cours | voir `roadmap_current.md` |
 | 7 | Mini-jeux (sélection + API de remontée de stats) — **jeux ajoutés au fil du temps** via la table `game` (alimentée dynamiquement, aucun jeu en dur dans le code) | ⬜ à faire | — |
 | 8 | Production : VPS Debian 12 (provisionnement, durcissement, déploiement, tâches serveur) | ⬜ à faire | VPS à provisionner |
 
