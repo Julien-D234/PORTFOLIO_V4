@@ -40,6 +40,21 @@ describe("matrice d'accès structurelle", () => {
     }
   });
 
+  it("chaque route api/profile passe par requireApi + isSameOrigin et n'exporte pas PUT/PATCH/DELETE", () => {
+    const dir = path.join(root, "src/app/api/profile");
+    const files = [...walk(dir)];
+    expect(files.length).toBeGreaterThan(0);
+    for (const f of files) {
+      const src = fs.readFileSync(f, "utf8");
+      expect(src.includes("requireApi("), `${f} doit appeler requireApi(...) avant tout accès BDD`).toBe(true);
+      expect(src.includes("isSameOrigin"), `${f} doit vérifier isSameOrigin sur les POST`).toBe(true);
+      expect(
+        /export\s+(const|async function)\s+(PUT|PATCH|DELETE)\b/.test(src),
+        `${f} ne doit exporter ni PUT ni PATCH ni DELETE (POST uniquement)`,
+      ).toBe(false);
+    }
+  });
+
   it("le matcher du proxy exclut bien api et media/", () => {
     const src = fs.readFileSync(path.join(root, "src/proxy.ts"), "utf8");
     expect(src).toContain("api");
