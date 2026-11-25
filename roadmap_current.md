@@ -40,13 +40,13 @@ et application de la charte V2 aux pages projets **après validation visuelle de
 - [x] API admin 100 % POST (`/api/admin/projects`, `/[id]`, `/[id]/publish|unpublish|delete`) — couvertes par la matrice d'accès structurelle
 - [x] i18n `projects.*` / `admin.projects.*` fr/en (parité testée)
 - [x] Admin `/admin/projects` (liste), `/new`, `/[id]` (éditeur complet)
-- [x] Smoke HTTP one-shot (PGlite + prod, `DB_POOL_MAX=1`) : **28/28 OK** — matrice anon/user/admin, Origin, upload PNG 201 / SVG 415,
+- [x] Smoke HTTP one-shot (PGlite + prod, `DB_POOL_MAX=1`) : **25/25 OK** (incl. pages publiques : deck 200 + lien détail, détail 200 FR/EN, brouillon/dépublié/inconnu → 404, média 404→200→404) — matrice anon/user/admin, Origin, upload PNG 201 / SVG 415,
   média 404 brouillon → 200 publié (CSP sandbox + nosniff + immutable) → miniature → 404 dépublié → 200 admin,
   delete 422 mauvais slug → 200, médias orphelins effacés (0 fichier restant)
 - [x] `npm run check` (56 tests) + `build` verts à chaque bloc
 - [x] Commits poussés → PR draft **#14** ouverte
 - [x] Maquette `maquettes/projets-v2.html` produite → **✅ DA validée par Julien** (bouton « Voir le projet » remonté)
-- [ ] Pages publiques `/[lang]/projects` (deck immersif) + `/[lang]/projects/[slug]` (détail) — maquette validée, prêt à coder
+- [x] Pages publiques `/[lang]/projects` (deck immersif : roue 1 écran/1400 ms, clavier, tactile, points, reduced-motion, voile, bouton à mi-hauteur) + `/[lang]/projects/[slug]` (détail : titre/date/tags/liens/description/galerie bichromie, brouillon→404) — charte V2 appliquée conformément à la maquette validée
 
 ## Blocages / erreurs signalées (corrigées)
 

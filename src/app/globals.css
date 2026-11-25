@@ -109,3 +109,166 @@ time,
     --sh: 3px;
   }
 }
+
+/* bichromie unique des images (pas de couleur au survol) */
+.duo {
+  position: relative;
+  overflow: hidden;
+  background: var(--duo-light);
+}
+
+.duo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.05);
+  mix-blend-mode: multiply;
+}
+
+.duo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--duo-dark);
+  mix-blend-mode: lighten;
+  pointer-events: none;
+}
+
+.tag {
+  display: inline-block;
+  border: var(--bw) solid var(--ink);
+  border-radius: var(--r);
+  padding: 1px 7px;
+  font-size: 12px;
+  background: var(--card);
+  color: var(--txt);
+}
+
+.btn {
+  display: inline-block;
+  border: var(--bw) solid var(--ink);
+  border-radius: var(--r);
+  padding: 6px 12px;
+  font-size: 14px;
+  background: var(--hl);
+  color: var(--on-hl);
+  box-shadow: var(--sh) var(--sh) 0 var(--shadow-c);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn.ghost {
+  background: var(--card);
+  color: var(--txt);
+}
+
+/* deck immersif /projects */
+.deck {
+  position: relative;
+  height: 100dvh;
+  overflow: hidden;
+  background: #000;
+}
+
+.deck-track {
+  height: 100%;
+  transition: transform 1400ms cubic-bezier(0.77, 0, 0.18, 1);
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deck-track {
+    transition: none;
+  }
+}
+
+.deck-slide {
+  position: relative;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.deck-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #000d 0%, #0005 45%, #0002 100%);
+}
+
+.deck-content {
+  position: absolute;
+  inset: 0;
+  padding: clamp(16px, 5vw, 64px);
+  padding-bottom: 24dvh;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+  justify-content: flex-end;
+  color: #f4f1ea;
+}
+
+.deck-title {
+  margin: 0;
+  font-size: clamp(28px, 6vw, 64px);
+  line-height: 1.05;
+  color: #f4f1ea;
+  text-wrap: balance;
+}
+
+.deck-summary {
+  margin: 0;
+  max-width: 60ch;
+  color: #d8d4c9;
+  font-size: 16px;
+}
+
+.deck-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.deck-tag {
+  background: #141416cc;
+  color: #ededee;
+  border-color: #ededee;
+}
+
+.deck-dots {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 5;
+}
+
+.deck-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--r);
+  border: var(--bw) solid #f4f1ea;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+
+.deck-dot[aria-current="true"] {
+  background: var(--hl);
+  border-color: var(--hl);
+}
+
+.deck-hint {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 10px;
+  z-index: 5;
+  color: #d8d4c9;
+  font-size: 12px;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  transition: opacity 300ms;
+}
