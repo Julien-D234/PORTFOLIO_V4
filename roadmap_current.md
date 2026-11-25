@@ -45,8 +45,8 @@ et application de la charte V2 aux pages projets **après validation visuelle de
   delete 422 mauvais slug → 200, médias orphelins effacés (0 fichier restant)
 - [x] `npm run check` (56 tests) + `build` verts à chaque bloc
 - [x] Commits poussés → PR draft **#14** ouverte
-- [x] Maquette `maquettes/projets-v2.html` produite → **⏳ validation visuelle Julien en attente**
-- [ ] Pages publiques `/[lang]/projects` (deck immersif) + `/[lang]/projects/[slug]` (détail) — **après validation de la maquette**
+- [x] Maquette `maquettes/projets-v2.html` produite → **✅ DA validée par Julien** (bouton « Voir le projet » remonté)
+- [ ] Pages publiques `/[lang]/projects` (deck immersif) + `/[lang]/projects/[slug]` (détail) — maquette validée, prêt à coder
 
 ## Blocages / erreurs signalées (corrigées)
 

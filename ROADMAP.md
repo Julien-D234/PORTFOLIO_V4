@@ -20,7 +20,7 @@ Dernière mise à jour : étape 5 (projets + médias) en cours. Tâche en cours 
 | Tâche | Statut | Note |
 |---|---|---|
 | Sauvegardes (pg_dump + médias, local 14 j, puis copie offsite chiffrée + test de restauration) | ⏸️ différée volontairement | Décision Julien : « on ne fait pas de sauvegarde pour l'instant ». Risque accepté : perte du VPS = perte données/médias (code sauvé sur GitHub). |
-| Maquette `maquettes/projets-v2.html` (clair + sombre) | ⬜ avant l'étape 5 | Obligatoire avant d'appliquer la charte V2 aux pages projets |
+| Maquette `maquettes/projets-v2.html` (clair + sombre) | ✅ DA validée par Julien (PR #14) | Bouton « Voir le projet » remonté (contenu centré verticalement) |
 | Accueil : design/contenu + navigation globale | ⬜ avec étape 5+ | Accueil volontairement vide pour l'instant |
 | Envoi des invitations par e-mail (SMTP) | ⬜ plus tard | Liens transmis manuellement par l'admin en attendant |
 | Filtre public par tags, point d'intérêt réglable des images | ⬜ idées V2+ | — |
