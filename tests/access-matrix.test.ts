@@ -55,6 +55,28 @@ describe("matrice d'accès structurelle", () => {
     }
   });
 
+  it("chaque route api/v1 authentifie (clé API ou ticket) avant tout accès BDD et n'exporte pas PUT/PATCH/DELETE", () => {
+    const dir = path.join(root, "src/app/api/v1");
+    const files = [...walk(dir)];
+    expect(files.length).toBeGreaterThan(0);
+    for (const f of files) {
+      const src = fs.readFileSync(f, "utf8");
+      const okAuth =
+        src.includes("verifyApiKeyForSlug") || src.includes("verifyGameToken");
+      expect(okAuth, `${f} doit authentifier (clé API ou ticket) avant tout accès BDD`).toBe(true);
+      // l'authentification doit apparaître avant le premier getDb()/db.query
+      const authIdx = Math.min(
+        ...[src.indexOf("verifyApiKeyForSlug"), src.indexOf("verifyGameToken")].filter((i) => i >= 0),
+      );
+      const dbIdx = Math.max(src.indexOf("getDb()"), src.indexOf("db.query"), src.indexOf("recordStat("), src.indexOf("refreshSession("), src.indexOf("startSession("));
+      expect(authIdx < dbIdx, `${f} : l'auth doit précéder l'accès BDD`).toBe(true);
+      expect(
+        /export\s+(const|async function)\s+(PUT|PATCH|DELETE)\b/.test(src),
+        `${f} ne doit exporter ni PUT ni PATCH ni DELETE (POST uniquement)`,
+      ).toBe(false);
+    }
+  });
+
   it("le matcher du proxy exclut bien api et media/", () => {
     const src = fs.readFileSync(path.join(root, "src/proxy.ts"), "utf8");
     expect(src).toContain("api");
